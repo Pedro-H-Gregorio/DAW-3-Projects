@@ -1,13 +1,13 @@
 import Image from "next/image";
-import pic01 from "./images/pic01.jpg";
-import pic02 from "./images/pic02.jpg";
-import pic03 from "./images/pic03.jpg";
-import pic04 from "./images/pic04.jpg";
-import pic05 from "./images/pic05.jpg";
-import pic06 from "./images/pic06.jpg";
-import pic07 from "./images/pic07.jpg";
-import pic08 from "./images/pic08.jpg";
-import pic09 from "./images/pic09.jpg";
+import pic01 from "/public/images/pic01.jpg";
+import pic02 from "/public/images/pic02.jpg";
+import pic03 from "/public/images/pic03.jpg";
+import pic04 from "/public/images/pic04.jpg";
+import pic05 from "/public/images/pic05.jpg";
+import pic06 from "/public/images/pic06.jpg";
+import pic07 from "/public/images/pic07.jpg";
+import pic08 from "/public/images/pic08.jpg";
+import pic09 from "/public/images/pic09.jpg";
 
 import "./page.css";
 
@@ -141,7 +141,6 @@ export default function Home() {
               </h2>
             </header>
             <a href="#" className="image fit">
-              import pic02 from "./images/pic02.jpg"
               <Image src={pic05} alt="" width={100} height={100} />
             </a>
             <p>
