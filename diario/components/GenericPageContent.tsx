@@ -1,5 +1,3 @@
-import "@/app/page.css";
-
 import Image from "next/image";
 
 import mainImage from "../public/images/pic01.jpg";

@@ -1,5 +1,3 @@
-import "@/app/page.css";
-
 export default function GenericPageHeader() {
     return (
         <header className="major">
