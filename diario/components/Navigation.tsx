@@ -10,27 +10,31 @@ export default function Navigation() {
             </ul>
             <ul className="icons">
                 <li>
-                    <a href="#" className="icon brands fa-twitter">
-                        <FaTwitter />
+                    <a href="#" style={
+                        { backgroundColor: "#f00" }
+                    } className="icon brands">
+                        <FaTwitter size={27} />
                         <span className="label">Twitter</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="icon brands fa-facebook-f">
-                        <FaFacebookF />
+                    <a href="#" className="icon brands">
+                        <FaFacebookF size={27} />
                         <span className="label">Facebook</span>
 
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="icon brands fa-instagram">
-                        <FaInstagram />
+                    <a href="#" className="icon brands">
+                        <FaInstagram size={27} />
                         <span className="label">Instagram</span>
                     </a>
                 </li>
                 <li>
-                    <FaGithub />
-                    <a href="#" className="icon brands fa-github"><span className="label">GitHub</span></a>
+                    <a href="#" className="icon brands">
+                        <FaGithub size={27} />
+                        <span className="label">GitHub</span>
+                    </a>
                 </li>
             </ul>
         </nav>
