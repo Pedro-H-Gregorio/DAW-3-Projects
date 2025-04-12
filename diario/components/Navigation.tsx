@@ -1,13 +1,29 @@
 import { FaFacebookF, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
 
-export default function Navigation() {
+type NavigationItem = {
+    title: string
+};
+
+type NavigationProps = {
+    items: NavigationItem[],
+    active: number,
+    onSelect: (index: number) => void
+};
+
+export default function Navigation({ items, active, onSelect }: NavigationProps) {
     return (
         <nav id="nav">
             <ul className="links">
-                <li className="active"><a href="index.html">This is Massively</a></li>
-                <li><a href="generic.html">Generic Page</a></li>
-                <li><a href="elements.html">Elements Reference</a></li>
+                {items.map(({ title }, index) => (
+                    <li key={index} className={`${index == active ? "active" : ""} `} onClick={(e) => {
+                        e.preventDefault();
+                        onSelect(index);
+                    }}>
+                        <a href="#">{title}</a>
+                    </li>
+                ))}
             </ul>
+
             <ul className="icons">
                 <li>
                     <a href="#" style={
@@ -37,6 +53,6 @@ export default function Navigation() {
                     </a>
                 </li>
             </ul>
-        </nav>
+        </nav >
     );
 }

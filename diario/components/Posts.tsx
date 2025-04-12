@@ -1,15 +1,12 @@
-import Image, { StaticImageData } from "next/image";
+import { StaticImageData } from "next/image";
 
 import Post from "./Post";
-import pic01 from "/public/images/pic01.jpg";
 import pic02 from "/public/images/pic02.jpg";
 import pic03 from "/public/images/pic03.jpg";
 import pic04 from "/public/images/pic04.jpg";
 import pic05 from "/public/images/pic05.jpg";
 import pic06 from "/public/images/pic06.jpg";
 import pic07 from "/public/images/pic07.jpg";
-import pic08 from "/public/images/pic08.jpg";
-import pic09 from "/public/images/pic09.jpg";
 
 type Post = {
     title: string,
@@ -49,8 +46,8 @@ export default function Posts() {
 
     return (
         <section className="posts">
-            {posts.map(post => (
-                <Post title={post.title} date={post.date} imageSrc={post.imageSrc}>{post.summary}</Post>
+            {posts.map((post, index) => (
+                <Post key={index} title={post.title} date={post.date} imageSrc={post.imageSrc}>{post.summary}</Post>
             ))}
         </section>
     );

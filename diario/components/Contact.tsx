@@ -55,8 +55,8 @@ export default function Contact() {
             <section>
                 <h3>Social</h3>
                 <ul className="icons alt">
-                    {contact.social.map(media => (
-                        <li>
+                    {contact.social.map((media, index) => (
+                        <li key={index}>
                             <a href={media.url} className="icon brands alt">
                                 <media.icon />
                                 <span className="label">{media.name}</span>
