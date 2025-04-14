@@ -23,20 +23,21 @@ export default function ButtonsStuff() {
                 <Action primary={true}>Fit + Small</Action>
                 <Action>Fit + Small</Action>
             </Actions>
-            <ul className="actions">
-                <li>
-                    <a href="#" className="button primary icon solid fa-search" >
-                        <FaSearch className="icon before" style={{ fontSize: "1rem" }} />
-                        Icon
-                    </a>
-                </li>
-                <li>
-                    <a href="#" className="button icon" style={{ display: "flex" }}>
-                        <FaDownload className="icon before icon_solid_before" style={{ height: "100%" }} />
-                        Icon
-                    </a>
-                </li>
-            </ul>
+            <Actions>
+                <Action
+                    icon={{
+                        element: FaSearch,
+                        solid: true,
+                    }}
+                    primary={true}
+                >Icon</Action>
+                <Action
+                    icon={{
+                        element: FaDownload,
+                        solid: true,
+                    }}
+                >Icon</Action>
+            </Actions >
             <Actions>
                 <Action primary={true} disabled={true}>Primary</Action>
                 <Action disabled={true}>Default</Action>

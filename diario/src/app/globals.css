@@ -2189,11 +2189,11 @@ button,
     white-space: nowrap;
 }
 
-input[type="submit"].icon:before,
-input[type="reset"].icon:before,
-input[type="button"].icon:before,
-button.icon:before,
-.button.icon:before {
+input[type="submit"] .icon.before,
+input[type="reset"] .icon.before,
+input[type="button"] .icon.before,
+button .icon.before,
+.button .icon.before {
     margin-right: 0.5rem;
 }
 
@@ -2651,7 +2651,7 @@ input[type="radio"]:focus+label:before {
     position: relative;
 }
 
-.icon:before {
+.icon.before {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     display: inline-block;
@@ -2668,15 +2668,15 @@ input[type="radio"]:focus+label:before {
     display: none;
 }
 
-.icon:before {
+.icon.before {
     line-height: inherit;
 }
 
-.icon.solid:before {
+.icon.solid.before {
     font-weight: 900;
 }
 
-.icon.brands:before {
+.icon.brands.before {
     font-family: "Font Awesome 5 Brands";
 }
 
