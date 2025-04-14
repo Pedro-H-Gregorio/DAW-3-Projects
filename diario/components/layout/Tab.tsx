@@ -3,8 +3,8 @@
 import { ReactNode } from "react";
 
 export type TabProps = {
-    title: string,
-    children: ReactNode
+    title: string;
+    children: ReactNode;
 };
 
 export default function Tab({ children }: TabProps) {

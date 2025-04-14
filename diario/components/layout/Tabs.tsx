@@ -8,7 +8,7 @@ import { TabProps } from "./Tab";
 
 
 type TabsProps = {
-    children: ReactElement<TabProps>[]
+    children: ReactElement<TabProps>[];
 };
 
 const links = [

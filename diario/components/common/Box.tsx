@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 type BoxProps = {
-    children: ReactNode
+    children: ReactNode;
 };
 
 export default function Box({ children }: BoxProps) {

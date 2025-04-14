@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
 type TableProps = {
-    children?: ReactNode,
-    alt?: boolean,
+    children?: ReactNode;
+    alt?: boolean;
 };
 
 export default function Table({ children = [], alt }: TableProps) {

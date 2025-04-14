@@ -2,9 +2,9 @@ import ExternalLink, { ExternalLinkProps } from "./ExternalLink";
 
 
 type ExternalLinksProps = {
-    links: ExternalLinkProps[],
-    alt?: boolean,
-    size?: number
+    links: ExternalLinkProps[];
+    alt?: boolean;
+    size?: number;
 };
 
 export default function ExternalLinks({ links, size, alt }: ExternalLinksProps) {

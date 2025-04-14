@@ -2,10 +2,10 @@ import { Children, cloneElement, isValidElement, ReactElement } from "react";
 import { ActionProps } from "./Action";
 
 type ActionsProps = {
-    children: ReactElement<ActionProps> | ReactElement<ActionProps>[],
-    stacked?: boolean,
-    size?: "small" | "default" | "large",
-    fit?: boolean
+    children: ReactElement<ActionProps> | ReactElement<ActionProps>[];
+    stacked?: boolean;
+    size?: "small" | "default" | "large";
+    fit?: boolean;
 };
 
 export default function Actions(props: ActionsProps) {

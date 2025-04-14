@@ -9,10 +9,10 @@ import pic06 from "/public/images/pic06.jpg";
 import pic07 from "/public/images/pic07.jpg";
 
 type Post = {
-    title: string,
-    date: string,
-    summary: string,
-    imageSrc: StaticImageData
+    title: string;
+    date: string;
+    summary: string;
+    imageSrc: StaticImageData;
 }
 
 const posts = [

@@ -1,11 +1,11 @@
 import { IconType } from "react-icons";
 
 export type ExternalLinkProps = {
-    name: string,
-    url: string,
-    icon: IconType,
-    alt?: boolean,
-    size?: number
+    name: string;
+    url: string;
+    icon: IconType;
+    alt?: boolean;
+    size?: number;
 };
 
 export default function ExternalLink(props: ExternalLinkProps) {

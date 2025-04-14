@@ -2,10 +2,10 @@ import Image, { StaticImageData } from "next/image";
 
 
 type PostProps = {
-    title: string,
-    date: string,
-    children: string,
-    imageSrc: StaticImageData
+    title: string;
+    date: string;
+    children: string;
+    imageSrc: StaticImageData;
 };
 
 export default function Post({ title, date, imageSrc, children }: PostProps) {

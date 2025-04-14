@@ -2,14 +2,14 @@ import { ExternalLinkProps } from "../common/ExternalLink";
 import ExternalLinks from "../common/ExternalLinks";
 
 type NavigationItem = {
-    title: string
+    title: string;
 };
 
 type NavigationProps = {
-    items: NavigationItem[],
-    links: ExternalLinkProps[],
-    active: number,
-    onSelect: (index: number) => void
+    items: NavigationItem[];
+    links: ExternalLinkProps[];
+    active: number;
+    onSelect: (index: number) => void;
 };
 
 
