@@ -1,15 +1,16 @@
-import Actions from "./ActionsStuff";
-import Blockquote from "./BlockquoteStuff";
-import Box from "./BoxStuff";
-import Buttons from "./ButtonsStuff";
-import Definition from "./DefinitionStuff";
-import Form from "./FormStuff";
-import Header from "./HeaderStuff";
-import Image from "./ImageStuff";
-import Lists from "./ListsStuff";
-import Preformatted from "./PreformattedStuff";
-import Tables from "./TablesStuff";
-import Text from "./TextStuff";
+import Actions from "../stuff/ActionsStuff";
+import Blockquote from "../stuff/BlockquoteStuff";
+import Box from "../stuff/BoxStuff";
+import Buttons from "../stuff/ButtonsStuff";
+import Definition from "../stuff/DefinitionStuff";
+import Form from "../stuff/FormStuff";
+import Header from "../stuff/HeaderStuff";
+import Image from "../stuff/ImageStuff";
+import Lists from "../stuff/ListsStuff";
+import Preformatted from "../stuff/PreformattedStuff";
+import Tables from "../stuff/TablesStuff";
+import Text from "../stuff/TextStuff";
+
 
 export default function Elements() {
     return (

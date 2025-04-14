@@ -1,8 +1,10 @@
+import Box from "../common/Box";
+
 export default function BoxStuff() {
     return (
         <>
             <h2>Box</h2>
-            <div className="box">
+            <Box>
                 <p>Felis sagittis eget tempus primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis
                     volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis
                     sagittis eget. tempus euismod. Magna sed etiam ante ipsum primis in faucibus vestibulum. Blandit
@@ -15,7 +17,7 @@ export default function BoxStuff() {
                     vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus.
                     Integer ac pellentesque praesent. Vestibulum ante ipsum primis in faucibus magna blandit
                     adipiscing eu felis iaculis volutpat lorem ipsum dolor.</p>
-            </div>
+            </Box>
         </>
     );
 }

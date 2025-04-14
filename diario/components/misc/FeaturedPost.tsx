@@ -1,13 +1,6 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
 import pic01 from "/public/images/pic01.jpg";
-
-type Post = {
-    title: string,
-    date: string,
-    summary: string,
-    imageSrc: StaticImageData
-}
 
 const post = {
     title: "And this is a massive headline",

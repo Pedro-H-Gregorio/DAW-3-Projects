@@ -1,15 +1,14 @@
-import Copyright from "../../components/Copyright";
-import Elements from "../../components/Elements";
-import FeaturedPost from "../../components/FeaturedPost";
-import Footer from "../../components/Footer";
-import Generic from "../../components/Generic";
-import Header from "../../components/Header";
-import Intro from "../../components/Intro";
-import PaginationFooter from "../../components/PaginationFooter";
-import Posts from "../../components/Posts";
-import Tab from "../../components/Tab";
-import Tabs from "../../components/Tabs";
-
+import Footer from "../../components/layout/Footer";
+import Header from "../../components/layout/Header";
+import Tab from "../../components/layout/Tab";
+import Tabs from "../../components/layout/Tabs";
+import Copyright from "../../components/misc/Copyright";
+import Elements from "../../components/misc/Elements";
+import FeaturedPost from "../../components/misc/FeaturedPost";
+import Generic from "../../components/misc/Generic";
+import Intro from "../../components/misc/Intro";
+import PaginationFooter from "../../components/misc/PaginationFooter";
+import Posts from "../../components/misc/Posts";
 
 export default function Home() {
     return (

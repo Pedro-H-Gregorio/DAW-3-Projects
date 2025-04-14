@@ -1,4 +1,5 @@
 import { FaFacebookF, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
+import ExternalLinks from "../common/ExternalLinks";
 
 const contact = {
     address: {
@@ -54,16 +55,7 @@ export default function Contact() {
             </section>
             <section>
                 <h3>Social</h3>
-                <ul className="icons alt">
-                    {contact.social.map((media, index) => (
-                        <li key={index}>
-                            <a href={media.url} className="icon brands alt">
-                                <media.icon />
-                                <span className="label">{media.name}</span>
-                            </a>
-                        </li>
-                    ))}
-                </ul>
+                <ExternalLinks links={contact.social} alt={true} />
             </section>
         </section>
 

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import mainImage from "../public/images/pic01.jpg";
+import mainImage from "/public/images/pic01.jpg";
 
 export default function GenericPageContent() {
     return (
