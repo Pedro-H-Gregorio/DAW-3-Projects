@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { ReactElement, useState } from "react";
 import { FaFacebookF, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";

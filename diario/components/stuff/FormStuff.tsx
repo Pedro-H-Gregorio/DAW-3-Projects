@@ -1,8 +1,15 @@
+"use client";
+
+import Form from "next/form";
+import RadioGroup from "../common/RadioGroup";
+import RadioGroupItem from "../common/RadioGroupItem";
+import Checkbox from "../common/Checkbox";
+
 export default function FormStuff() {
     return (
         <>
             <h2>Form</h2>
-            <form method="post" action="#">
+            <Form action="#">
                 <div className="row gtr-uniform">
                     <div className="col-6 col-12-xsmall">
                         <input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
@@ -19,25 +26,19 @@ export default function FormStuff() {
                             <option value="1">Human Resources</option>
                         </select>
                     </div>
-                    <div className="col-4 col-12-small">
-                        <input type="radio" id="demo-priority-low" name="demo-priority" checked />
-                        <label htmlFor="demo-priority-low">Low</label>
-                    </div>
-                    <div className="col-4 col-12-small">
-                        <input type="radio" id="demo-priority-normal" name="demo-priority" />
-                        <label htmlFor="demo-priority-normal">Normal</label>
-                    </div>
-                    <div className="col-4 col-12-small">
-                        <input type="radio" id="demo-priority-high" name="demo-priority" />
-                        <label htmlFor="demo-priority-high">High</label>
+                    <RadioGroup wrapper={{
+                        component: "div",
+                        props: { className: "col-4 col-12-small" }
+                    }} name="size" defaultValue="low">
+                        <RadioGroupItem id="low">Low</RadioGroupItem>
+                        <RadioGroupItem id="normal">Normal</RadioGroupItem>
+                        <RadioGroupItem id="high">High</RadioGroupItem>
+                    </RadioGroup>
+                    <div className="col-6 col-12-small">
+                        <Checkbox id="copy">Email me a copy</Checkbox>
                     </div>
                     <div className="col-6 col-12-small">
-                        <input type="checkbox" id="demo-copy" name="demo-copy" />
-                        <label htmlFor="demo-copy">Email me a copy</label>
-                    </div>
-                    <div className="col-6 col-12-small">
-                        <input type="checkbox" id="demo-human" name="demo-human" checked />
-                        <label htmlFor="demo-human">I am a human</label>
+                        <Checkbox id="human" checked={true}>I am a human</Checkbox>
                     </div>
                     <div className="col-12">
                         <textarea name="demo-message" id="demo-message" placeholder="Enter your message"
@@ -50,7 +51,7 @@ export default function FormStuff() {
                         </ul>
                     </div>
                 </div>
-            </form>
+            </Form>
         </>
     );
 }
