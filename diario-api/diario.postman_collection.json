@@ -1,0 +1,180 @@
+{
+	"info": {
+		"_postman_id": "fcf32ae3-f771-4bd9-ac2e-46c0d4c8ff7b",
+		"name": "diario",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43223284",
+		"_collection_link": "https://eu-sozinho.postman.co/workspace/Team-Workspace~4aa837e1-0284-43a2-8087-93cf0d2e3577/collection/43223284-fcf32ae3-f771-4bd9-ac2e-46c0d4c8ff7b?action=share&source=collection_link&creator=43223284"
+	},
+	"item": [
+		{
+			"name": "get diario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/diarios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"diarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post diario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nomeAutor\": \"Pedro\",\n    \"email\": \"pedro@gmail.com\",\n    \"descricao\": \"Primeiro texto\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/diarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"diarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update diario",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"pedrosgregrio@gmail.com\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/diarios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"diarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete diario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/diarios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"diarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all diario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/diarios/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"diarios",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post image diario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/pedro/Imagens/Capturas de tela/Captura de tela de 2025-04-20 01-57-29.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/diarios/1/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"diarios",
+						"1",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get image",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/uploads/diarios/file-1745126807086-239568668.png",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"uploads",
+						"diarios",
+						"file-1745126807086-239568668.png"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
