@@ -35,7 +35,7 @@ const links = [
 ];
 
 export default function Tabs({ children }: TabsProps) {
-    const [active, setActive] = useState<number>(2);
+    const [active, setActive] = useState<number>(0);
 
     return (
         <>

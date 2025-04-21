@@ -1,5 +1,7 @@
-import Image, { StaticImageData } from "next/image";
-
+import { StaticImageData } from "next/image";
+import Actions from "../common/Actions";
+import Action from "../common/Action";
+import ResponsiveImage from "../common/ResponsiveImage";
 
 type PostProps = {
     title: string;
@@ -15,19 +17,22 @@ export default function Post({ title, date, imageSrc, children }: PostProps) {
                 <span className="date">{date}</span>
                 <h2 style={{
                     textWrap: "balance",
+                    paddingLeft: "5%",
+                    paddingRight: "5%"
                 }}>
                     <a href="#">{title}</a>
                 </h2>
             </header>
-            <a href="#" className="image fit">
-                <Image src={imageSrc} alt="" style={{ height: "auto" }} />
-            </a>
+            <ResponsiveImage wrapper={{
+                component: "a",
+                props: {
+                    href: "#"
+                }
+            }} alignment="fit" src={imageSrc} alt="" />
             <p>{children}</p>
-            <ul className="actions special">
-                <li>
-                    <a href="#" className="button">Full Story</a>
-                </li>
-            </ul>
+            <Actions special={true}>
+                <Action>Full Story</Action>
+            </Actions>
         </article>
     );
 }

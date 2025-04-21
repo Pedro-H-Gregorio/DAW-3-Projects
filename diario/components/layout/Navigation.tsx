@@ -7,7 +7,7 @@ type NavigationItem = {
 
 type NavigationProps = {
     items: NavigationItem[];
-    links: ExternalLinkProps[];
+    links?: ExternalLinkProps[];
     active: number;
     onSelect: (index: number) => void;
 };
@@ -28,7 +28,9 @@ export default function Navigation({ items, links, active, onSelect }: Navigatio
                     ))
                 }
             </ul>
-            <ExternalLinks links={links} size={27} />
+            {
+                links ? <ExternalLinks links={links} size={27} /> : null
+            }
         </nav >
     );
 }

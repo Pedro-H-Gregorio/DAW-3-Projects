@@ -1,6 +1,9 @@
-import Image from "next/image";
 
 import pic01 from "/public/images/pic01.jpg";
+import ResponsiveImage from "../common/ResponsiveImage";
+import Actions from "../common/Actions";
+import Action from "../common/Action";
+import MajorHeader from "../common/MajorHeader";
 
 const post = {
     title: "And this is a massive headline",
@@ -12,29 +15,15 @@ const post = {
 export default function FeaturedPost() {
     return (
         <article className="post featured">
-            <header className="major">
-                <span className="date">{post.date}</span>
-                <h2 style={{
-                    textWrap: "balance"
-                }}>
-                    <a href="#">{post.title}</a>
-                </h2>
-                <p style={{
-                    textWrap: "balance"
-                }}>{post.summary}</p>
-            </header>
-            <a href="#" className="image main">
-                <Image src={pic01} alt="" style={{
-                    height: "auto"
-                }} />
-            </a>
-            <ul className="actions special">
-                <li>
-                    <a href="#" className="button large">
-                        Full Story
-                    </a>
-                </li>
-            </ul>
+            <MajorHeader title={post.title} date={post.date}>{post.summary}</MajorHeader>
+            <ResponsiveImage wrapper={{
+                component: "a", props: {
+                    href: "#"
+                }
+            }} src={pic01} alignment="main" alt="" />
+            <Actions special={true}>
+                <Action size="large">Full Story</Action>
+            </Actions>
         </article>
     );
 }

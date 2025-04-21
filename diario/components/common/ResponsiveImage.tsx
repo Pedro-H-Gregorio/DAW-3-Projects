@@ -1,21 +1,27 @@
 import NextImage, { ImageProps as NextImageProps } from "next/image";
 import { ElementType } from "react";
 
+type WrapperProps = {
+    component: ElementType;
+    props?: Record<string, any>;
+};
+
+
 type ResponsiveImageProps = NextImageProps & {
-    wrapper?: ElementType;
-    alignment?: "fit" | "left" | "right";
+    wrapper?: WrapperProps;
+    alignment?: "fit" | "left" | "right" | "main";
 };
 
 export default function ResponsiveImage({
-    wrapper: Wrapper = "div",
+    wrapper = { component: "div" },
     alignment = "fit",
     style,
     ...rest
 }: ResponsiveImageProps) {
-    const alignmentClass = `image ${alignment}`;
+    const alignmentClass = `image ${alignment} ${wrapper?.props?.className}`;
 
     return (
-        <Wrapper className={alignmentClass}>
+        <wrapper.component className={alignmentClass} {...wrapper?.props}>
             <NextImage
                 {...rest}
                 style={{
@@ -23,6 +29,6 @@ export default function ResponsiveImage({
                     ...style,
                 }}
             />
-        </Wrapper>
+        </wrapper.component >
     );
 }
