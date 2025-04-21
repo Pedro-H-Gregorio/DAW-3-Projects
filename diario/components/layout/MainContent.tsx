@@ -26,8 +26,10 @@ export default async function MainContent({ searchParams }: MainContentProps) {
             <Tabs>
                 <Tab title="This is Massively">
                     {parsedPosts.length ?
-                        <FeaturedPost post={parsedPosts[0]} /> : null}
-                    <Posts posts={parsedPosts.slice(1)} />
+                        <>
+                            <FeaturedPost post={parsedPosts[0]} />
+                            <Posts posts={parsedPosts.slice(1)} />
+                        </> : null}
                     <footer>
                         <Pagination pages={Array.from({ length: totalPage }, (_x, i) => i + 1)} maxNumberPages={6} />
                     </footer>
