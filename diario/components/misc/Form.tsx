@@ -18,6 +18,7 @@ export default function Form() {
                 </div>
                 <ul className="actions">
                     <li><input type="submit" value="Send Message" /></li>
+                    <li><input type="submit" value="Edit Message" /></li>
                 </ul>
             </form >
         </section>

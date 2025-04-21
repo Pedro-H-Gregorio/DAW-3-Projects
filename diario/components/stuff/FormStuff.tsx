@@ -7,6 +7,8 @@ import Action from "../common/Action";
 export default function FormStuff() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [title, setTitle] = useState("");
+    const [category, setCategory] = useState("");
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -27,7 +29,9 @@ export default function FormStuff() {
             <form method="post" action="#" encType="multipart/form-data" onReset={() => {
                 setName('');
                 setEmail('');
+                setTitle('');
                 setSelectedImage(null);
+                setCategory('');
                 if (fileInputRef.current) {
                     fileInputRef.current.value = "";
                 }}}>
@@ -38,19 +42,31 @@ export default function FormStuff() {
                     <div className="col-6 col-12-xsmall">
                         <input type="email" name="demo-email" id="demo-email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                     </div>
-                    <div className="col-12">
-                        <select name="demo-category" id="demo-category">
-                            <option value="">- Category -</option>
-                            <option value="1">Manufacturing</option>
-                            <option value="2">Shipping</option>
-                            <option value="3">Administration</option>
-                            <option value="4">Human Resources</option>
-                        </select>
+
+                    <div className="col-12 col-12-xsmall">
+                        <input type="text" name="demo-title" id="demo-title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" />
                     </div>
+
+                    <div className="col-12 col-12-xsmall">
+                    <input 
+                        type="text" 
+                        name="demo-category" 
+                        id="demo-category" 
+                        list="category-options"
+                        placeholder="- Category -" 
+                        value={category} 
+                        onChange={(e) => setCategory(e.target.value)} 
+                    />
+                    <datalist id="category-options">
+                        <option value="Manufacturing" />
+                        <option value="Shipping" />
+                        <option value="Administration" />
+                        <option value="Human Resources" />
+                    </datalist>
+                </div>
                     <div className="col-12">
                         <textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows={6}></textarea>
                     </div>
-                    {/* Upload Image Button + Hidden Input */}
                     <div className="col-12">
                         <input
                             type="file"
