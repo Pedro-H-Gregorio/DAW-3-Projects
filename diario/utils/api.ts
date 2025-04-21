@@ -1,15 +1,17 @@
 
+type ApiPost = {
+    id: number;
+    nomeAutor: string;
+    email: string;
+    categoria: string;
+    descricao: string;
+    imagePath: string;
+    titulo: string;
+    dhPostagem: Date;
+}
+
 type ApiResponse = {
-    data: {
-        id: number;
-        nomeAutor: string;
-        email: string;
-        categoria: string;
-        descricao: string;
-        imagePath: string;
-        titulo: string;
-        dhPostagem: Date;
-    }[];
+    data: ApiPost[];
     limit: number;
     page: number;
     total: number;
@@ -25,4 +27,13 @@ export async function fetchPosts(page: number | string): Promise<ApiResponse> {
         throw new Error("Failed to fetch posts.");
 
     return result.json();
+}
+
+export function parsePosts(posts: ApiPost[]) {
+    return posts.map(post => ({
+        id: post.id.toString(),
+        title: post.nomeAutor,
+        date: post.email,
+        summary: post.descricao,
+    }));
 }

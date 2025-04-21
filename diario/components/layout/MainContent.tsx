@@ -4,7 +4,7 @@ import Elements from "../../components/misc/Elements";
 import FeaturedPost from "../../components/misc/FeaturedPost";
 import Generic from "../../components/misc/Generic";
 import Posts from "../../components/misc/Posts";
-import { fetchPosts } from "../../utils/api";
+import { fetchPosts, parsePosts } from "../../utils/api";
 import Pagination from "../../components/common/Pagination";
 
 type MainContentProps = {
@@ -20,12 +20,7 @@ export default async function MainContent({ searchParams }: MainContentProps) {
 
         const response = await fetchPosts(currentPage);
         const totalPage = Math.ceil(response.total / response.limit) || 1;
-        const parsedPosts = response.data.map((post) => ({
-            id: post.id.toString(),
-            title: post.nomeAutor,
-            date: post.email,
-            summary: post.descricao,
-        }));
+        const parsedPosts = parsePosts(response.data);
 
         return (
             <Tabs>
