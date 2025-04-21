@@ -15,6 +15,7 @@ export class DiarioService {
 
   async create(diarioDTO: DiarioDTO): Promise<Diario> {
     const diario = this.diarioRepository.create(diarioDTO);
+    diario.dhPostagem = new Date();
     return this.diarioRepository.save(diario);
   }
 
@@ -55,6 +56,6 @@ export class DiarioService {
     if (!diario) {
       throw new NotFoundException(`Diário com o ID ${id} não encontrado`);
     }
-    await this.diarioRepository.delete(id);
+    await this.diarioRepository.delete({ id: id });
   }
 }
