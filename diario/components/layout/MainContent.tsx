@@ -45,11 +45,9 @@ export default async function MainContent({ searchParams }: MainContentProps) {
         );
     } catch (e) {
         return (
-            <Tabs>
-                <Tab title="Error">
-                    <h1>ERREI, FUI MLK</h1>
-                </Tab>
-            </Tabs>
+            <div id="main">
+                <h1>ERREI, FUI MLK</h1>
+            </div>
         );
     }
 }
