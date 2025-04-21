@@ -19,13 +19,22 @@ import { PaginationDto } from 'src/Pagination/dto/pagination.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerConfig } from 'src/config/multer.config';
 import { Express } from 'express';
+import { join } from 'path';
+import { unlink } from 'fs/promises';
 
 @Controller('diarios')
 export class DiarioController {
   constructor(private readonly diarioService: DiarioService) {}
 
   @Post()
-  create(@Body() diarioDTO: DiarioDTO) {
+  @UseInterceptors(FileInterceptor('file', multerConfig))
+  create(
+    @Body() diarioDTO: DiarioDTO,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (file) {
+      diarioDTO.imagemPath = file.path.replace(process.cwd() + '/dist/', '');
+    }
     return this.diarioService.create(diarioDTO);
   }
 
@@ -35,45 +44,53 @@ export class DiarioController {
   }
 
   @Get(':id')
-  findOnde(@Param('id', ParseIntPipe) id: number) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.diarioService.findOne(id);
   }
 
   @Patch(':id')
-  update(
+  @UseInterceptors(FileInterceptor('file', multerConfig))
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateDiarioDTO: DiarioUpdateDTO,
+    @UploadedFile() file: Express.Multer.File,
   ) {
+    if (file) {
+      const diario = await this.findOne(id);
+      if (diario.imagemPath) {
+        await this.deleteFile(diario.imagemPath);
+      }
+      updateDiarioDTO.imagemPath = file.path.replace(
+        process.cwd() + '/dist/',
+        '',
+      );
+    }
     return this.diarioService.update(id, updateDiarioDTO);
   }
 
   @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: number) {
-    return this.diarioService.remove(+id);
-  }
-
-  @Post(':id/upload')
-  @UseInterceptors(FileInterceptor('file', multerConfig))
-  async uploadFile(
-    @Param('id') id: number,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    if (!file) {
-      throw new NotFoundException('Arquivo não encontrado');
-    }
-
-    const diario = await this.diarioService.findOne(id);
+  async remove(id: number) {
+    const diario = await this.findOne(id);
 
     if (!diario) {
       throw new NotFoundException(`Diário com o ID ${id} não encontrado`);
     }
 
-    const updateDto: DiarioUpdateDTO = {
-      nomeAutor: diario.nomeAutor,
-      email: diario.email,
-      descricao: diario.descricao,
-      imagemPath: file.path.replace(process.cwd() + '/dist/', ''),
-    };
-    return this.diarioService.update(id, updateDto);
+    if (diario.imagemPath) {
+      await this.deleteFile(diario.imagemPath);
+    }
+
+    await this.diarioService.remove(id);
+  }
+
+  async deleteFile(relativePath: string): Promise<void> {
+    const fullPath = join(__dirname, '..', '..', relativePath);
+    try {
+      await unlink(fullPath);
+    } catch (error) {
+      throw new Error(
+        `Erro ao remover o arquivo ${relativePath}: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
   }
 }

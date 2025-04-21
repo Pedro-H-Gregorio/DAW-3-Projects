@@ -13,12 +13,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/diarios/1",
+					"raw": "http://localhost:5000/diarios/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "5000",
 					"path": [
 						"diarios",
 						"1"
@@ -33,21 +33,42 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"nomeAutor\": \"Pedro\",\n    \"email\": \"pedro@gmail.com\",\n    \"descricao\": \"Primeiro texto\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/pedro/Imagens/Capturas de tela/Captura de tela de 2025-04-20 01-57-29.png"
+						},
+						{
+							"key": "titulo",
+							"value": "Primeiro",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "pedro@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "descricao",
+							"value": "abluabluablau",
+							"type": "text"
+						},
+						{
+							"key": "nomeAutor",
+							"value": "Pedro",
+							"type": "text"
 						}
-					}
+					]
 				},
 				"url": {
-					"raw": "http://localhost:3000/diarios",
+					"raw": "http://localhost:5000/diarios",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "5000",
 					"path": [
 						"diarios"
 					]
@@ -70,15 +91,45 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/diarios/1",
+					"raw": "http://localhost:5000/diarios/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "5000",
 					"path": [
 						"diarios",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update diario image",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/pedro/Imagens/Capturas de tela/Captura de tela de 2025-04-17 15-52-14.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/diarios/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"diarios",
+						"2"
 					]
 				}
 			},
@@ -90,12 +141,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/diarios/1",
+					"raw": "http://localhost:5000/diarios/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "5000",
 					"path": [
 						"diarios",
 						"1"
@@ -110,12 +161,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/diarios/",
+					"raw": "http://localhost:5000/diarios/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "5000",
 					"path": [
 						"diarios",
 						""
@@ -161,16 +212,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/uploads/diarios/file-1745126807086-239568668.png",
+					"raw": "http://localhost:5000/uploads/diarios/file-1745266847237-196684194.png",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "5000",
 					"path": [
 						"uploads",
 						"diarios",
-						"file-1745126807086-239568668.png"
+						"file-1745266847237-196684194.png"
 					]
 				}
 			},

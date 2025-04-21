@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class DiarioDTO {
   @IsNotEmpty({
@@ -12,12 +12,18 @@ export class DiarioDTO {
   @IsEmail({}, { message: 'E-mail inválido.' })
   email: string;
 
-  categoria: string;
+  categoria?: string;
 
   @IsNotEmpty({
     message: "O atributo de 'descricao' não pode ser nulo ou vázio",
   })
   descricao: string;
 
-  imagemPath: string;
+  imagemPath?: string;
+
+  @IsNotEmpty({ message: "O atributo de 'titulo' não pode ser nulo ou vázio" })
+  @IsString()
+  titulo: string;
+
+  dhPostagem: string;
 }
