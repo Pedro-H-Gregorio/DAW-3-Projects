@@ -13,13 +13,13 @@ type ApiResponse = {
 };
 
 export async function fetchPosts(page: number | string): Promise<ApiResponse> {
-    const url = new URL("http://localhost:3000/diarios");
+    const url = new URL("http://localhost:5000/diarios");
     url.searchParams.set("page", page.toString());
 
-    console.log(url);
-
     const result = await fetch(url);
+
     if (!result.ok)
         throw new Error("Failed to fetch posts.");
+
     return result.json();
 }

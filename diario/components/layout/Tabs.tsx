@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactElement, useState } from "react";
+import { Children, ReactElement, useState } from "react";
 import { FaFacebookF, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
 
 import Navigation from "./Navigation";
@@ -8,7 +8,7 @@ import { TabProps } from "./Tab";
 
 
 type TabsProps = {
-    children: ReactElement<TabProps>[];
+    children: ReactElement<TabProps> | ReactElement<TabProps>[];
 };
 
 const links = [
@@ -41,15 +41,14 @@ export default function Tabs({ children }: TabsProps) {
         <>
             <Navigation
                 items={
-                    children.map((child: ReactElement<TabProps>) => (
-                        { title: child.props.title }))
+                    Children.map(children, child => ({ title: child.props.title }))
                 }
                 links={links}
                 active={active}
                 onSelect={setActive}
             />
             <div id="main">
-                {children[active]}
+                {Array.isArray(children) ? children[active] : children}
             </div>
         </>
     );
