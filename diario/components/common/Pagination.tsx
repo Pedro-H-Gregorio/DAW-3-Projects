@@ -1,18 +1,20 @@
 "use client";
 
-type PagesProps = {
-    pages: number[];
-    currentPage: number;
-    maxNumberPages: number;
-    onClickAction: (page: number) => void;
-};
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-type PaginationProps = PagesProps & {
+type PaginationProps = {
+    pages: number[];
+    maxNumberPages: number;
     firstPage?: number;
     lastPage?: number;
 };
 
-function renderPages(currentPage: number, pages: number[], onClickAction: (page: number) => void) {
+function renderPages(
+    currentPage: number,
+    pages: number[],
+    onClickAction: (page: number) => void
+) {
     return pages.map((page, index) => (
         <a
             key={index}
@@ -26,7 +28,12 @@ function renderPages(currentPage: number, pages: number[], onClickAction: (page:
 }
 
 
-function FragmentedPages({ pages, currentPage, maxNumberPages, onClickAction }: PagesProps) {
+function renderFragmentedPages(
+    currentPage: number,
+    pages: number[],
+    maxNumberPages: number,
+    onClickAction: (page: number) => void
+) {
     return (
         <>
             {renderPages(currentPage, pages.slice(0, maxNumberPages / 2), onClickAction)}
@@ -41,22 +48,31 @@ export default function Pagination({
     pages,
     firstPage = Math.min(...pages),
     lastPage = Math.max(...pages),
-    currentPage,
     maxNumberPages,
-    onClickAction
 }: PaginationProps) {
+    const { replace } = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+    const currentPage = Number(searchParams.get("page") || 1);
+
+    const createPageURL = (page: number | string) => {
+        const params = new URLSearchParams(searchParams);
+        params.set("page", page.toString());
+        return `${pathname}?${params.toString()}`;
+    };
+
+    const updatePageURL = (page: number) => {
+        const url = createPageURL(page);
+        replace(url);
+    };
+
     return (
         <div className="pagination">
             {currentPage !== firstPage ? <a href="#" className="previous">Prev</a> : null}
             {
                 pages.length <= maxNumberPages ?
-                    renderPages(currentPage, pages, onClickAction) :
-                    <FragmentedPages
-                        pages={pages}
-                        currentPage={currentPage}
-                        maxNumberPages={maxNumberPages}
-                        onClickAction={onClickAction}
-                    />
+                    renderPages(currentPage, pages, updatePageURL) :
+                    renderFragmentedPages(currentPage, pages, maxNumberPages, updatePageURL)
             }
             {currentPage !== lastPage ? <a href="#" className="next">Next</a> : null}
         </div>
