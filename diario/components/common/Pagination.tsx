@@ -68,13 +68,19 @@ export default function Pagination({
 
     return (
         <div className="pagination">
-            {currentPage !== firstPage ? <a href="#" className="previous">Prev</a> : null}
+            {currentPage !== firstPage ? <a href="#" className="previous" onClick={(e) => {
+                e.preventDefault();
+                updatePageURL(currentPage - 1);
+            }}>Prev</a> : null}
             {
                 pages.length <= maxNumberPages ?
                     renderPages(currentPage, pages, updatePageURL) :
                     renderFragmentedPages(currentPage, pages, maxNumberPages, updatePageURL)
             }
-            {currentPage !== lastPage ? <a href="#" className="next">Next</a> : null}
+            {currentPage !== lastPage ? <a href="#" className="next" onClick={(e) => {
+                e.preventDefault();
+                updatePageURL(currentPage + 1);
+            }}>Next</a> : null}
         </div>
     );
 }
