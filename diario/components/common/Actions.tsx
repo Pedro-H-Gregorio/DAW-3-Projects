@@ -1,3 +1,5 @@
+'use client';
+
 import { Children, cloneElement, isValidElement, ReactElement } from "react";
 import { ActionProps } from "./Action";
 
