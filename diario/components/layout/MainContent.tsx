@@ -20,7 +20,8 @@ export default async function MainContent({ searchParams }: MainContentProps) {
 
         const response = await fetchPosts(currentPage);
         const totalPage = Math.ceil(response.total / response.limit) || 1;
-        const formatted = response.data.map((post: any) => ({
+        const parsedPosts = response.data.map((post) => ({
+            id: post.id.toString(),
             title: post.nomeAutor,
             date: post.email,
             summary: post.descricao,
@@ -30,7 +31,7 @@ export default async function MainContent({ searchParams }: MainContentProps) {
             <Tabs>
                 <Tab title="This is Massively">
                     <FeaturedPost />
-                    <Posts posts={formatted} />
+                    <Posts posts={parsedPosts} />
                     <footer>
                         <Pagination pages={Array.from({ length: totalPage }, (_x, i) => i + 1)} maxNumberPages={6} />
                     </footer>

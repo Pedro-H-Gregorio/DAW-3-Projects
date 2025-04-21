@@ -48,8 +48,8 @@ type PostsProps = {
 export default function Posts({ posts }: PostsProps) {
     return (
         <section className="posts">
-            {posts.map((post, index) => (
-                <Post key={index} title={post.title} date={post.date} imageSrc={pic02}>{post.summary}</Post>
+            {posts.map((post) => (
+                <Post key={post.id} title={post.title} date={post.date} imageSrc={pic02}>{post.summary}</Post>
             ))}
         </section>
     );

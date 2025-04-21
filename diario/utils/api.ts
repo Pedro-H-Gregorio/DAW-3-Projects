@@ -1,11 +1,14 @@
 
 type ApiResponse = {
     data: {
+        id: number;
         nomeAutor: string;
         email: string;
         categoria: string;
         descricao: string;
         imagePath: string;
+        titulo: string;
+        dhPostagem: Date;
     }[];
     limit: number;
     page: number;

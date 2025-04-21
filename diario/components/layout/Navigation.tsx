@@ -3,6 +3,7 @@ import ExternalLinks from "../common/ExternalLinks";
 
 type NavigationItem = {
     title: string;
+    hidden?: boolean;
 };
 
 type NavigationProps = {
@@ -18,13 +19,14 @@ export default function Navigation({ items, links, active, onSelect }: Navigatio
         <nav id="nav">
             <ul className="links">
                 {
-                    items.map(({ title }, index) => (
-                        <li key={index} className={`${index == active ? "active" : ""} `} onClick={(e) => {
-                            e.preventDefault();
-                            onSelect(index);
-                        }}>
-                            <a href="#">{title}</a>
-                        </li>
+                    items.map(({ title, hidden }, index) => (
+                        hidden ? null :
+                            <li key={index} className={`${index == active ? "active" : ""} `} onClick={(e) => {
+                                e.preventDefault();
+                                onSelect(index);
+                            }}>
+                                <a href="#">{title}</a>
+                            </li>
                     ))
                 }
             </ul>

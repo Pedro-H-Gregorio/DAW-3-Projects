@@ -41,7 +41,7 @@ export default function Tabs({ children }: TabsProps) {
         <>
             <Navigation
                 items={
-                    Children.map(children, child => ({ title: child.props.title }))
+                    Children.map(children, child => ({ title: child.props.title, hidden: child.props.hidden }))
                 }
                 links={links}
                 active={active}
