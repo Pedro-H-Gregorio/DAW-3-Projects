@@ -69,7 +69,7 @@ export class DiarioController {
   }
 
   @Delete(':id')
-  async remove(id: number) {
+  async remove(@Param('id', ParseIntPipe) id: number) {
     const diario = await this.findOne(id);
 
     if (!diario) {
