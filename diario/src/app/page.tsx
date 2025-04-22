@@ -31,6 +31,7 @@ export default async function Home({ searchParams }: HomeProps) {
             </>
         );
     } catch (e) {
+        console.log(e);
         return (
             <h1>ERREI, FUI MLK</h1>
         );

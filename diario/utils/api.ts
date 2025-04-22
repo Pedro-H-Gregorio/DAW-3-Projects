@@ -6,7 +6,7 @@ type ApiPost = {
     descricao: string;
     imagePath: string;
     titulo: string;
-    dhPostagem: Date;
+    dhPostagem: string;
 }
 
 type ApiResponse = {
@@ -17,12 +17,19 @@ type ApiResponse = {
 };
 
 export function parsePost(post: ApiPost) {
+    const date = new Date(post.dhPostagem);
+    const formated = date.toLocaleDateString("en-US", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+    });
+    const content = post.descricao.trim().concat("\n");
     return {
         id: post.id.toString(),
-        title: post.nomeAutor,
-        date: post.email,
-        summary: post.descricao.substring(0, post.descricao.indexOf("\n")),
-        content: post.descricao
+        title: post.titulo,
+        summary: content.substring(0, content.indexOf("\n")),
+        date: formated,
+        content
     };
 }
 
