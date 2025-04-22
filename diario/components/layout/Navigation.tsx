@@ -1,7 +1,12 @@
+"use client";
+
+import Link from "next/link";
 import { ExternalLinkProps } from "../common/ExternalLink";
 import ExternalLinks from "../common/ExternalLinks";
+import { usePathname } from "next/navigation";
 
 type NavigationItem = {
+    route: string;
     title: string;
     hidden?: boolean;
 };
@@ -9,23 +14,20 @@ type NavigationItem = {
 type NavigationProps = {
     items: NavigationItem[];
     links?: ExternalLinkProps[];
-    active: number;
-    onSelect: (index: number) => void;
 };
 
 
-export default function Navigation({ items, links, active, onSelect }: NavigationProps) {
+export default function Navigation({ items, links }: NavigationProps) {
+    const pathname = usePathname();
+    const isActived = (route: string) => pathname === route || (route !== "/" && pathname.startsWith(route));
     return (
         <nav id="nav">
             <ul className="links">
                 {
-                    items.map(({ title, hidden }, index) => (
-                        hidden ? null :
-                            <li key={index} className={`${index == active ? "active" : ""} `} onClick={(e) => {
-                                e.preventDefault();
-                                onSelect(index);
-                            }}>
-                                <a href="#">{title}</a>
+                    items.map(({ route, title, hidden }, index) => (
+                        hidden && !isActived(route) ? null :
+                            <li key={index} className={`${isActived(route) ? "active" : ""} `}>
+                                <Link href={route}>{title}</Link>
                             </li>
                     ))
                 }

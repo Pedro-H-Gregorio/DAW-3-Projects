@@ -1,18 +1,39 @@
-import Footer from "../../components/layout/Footer";
-import Header from "../../components/layout/Header";
-import Copyright from "../../components/misc/Copyright";
-import Intro from "../../components/misc/Intro";
-import MainContent from "../../components/layout/MainContent";
+import Pagination from "@/components/common/Pagination";
+import FeaturedPost from "@/components/misc/FeaturedPost";
+import Posts from "@/components/misc/Posts";
+import { fetchPosts, parsePosts } from "@/utils/api";
 
-export default async function Home() {
-    return (
-        <div className="wrapper">
-            <Intro />
-            <Header />
-            <MainContent />
-            <Footer />
-            <Copyright />
-        </div >
-    );
+type HomeProps = {
+    searchParams?: Promise<{
+        page?: string;
+    }>;
+};
+
+export default async function Home({ searchParams }: HomeProps) {
+    try {
+        const params = await searchParams;
+        const currentPage = Number(params?.page) || 1;
+
+        const response = await fetchPosts(currentPage);
+        const totalPage = Math.ceil(response.total / response.limit) || 1;
+        const parsedPosts = parsePosts(response.data);
+
+        return (
+            <>
+                {parsedPosts.length ?
+                    <>
+                        <FeaturedPost post={parsedPosts[0]} />
+                        <Posts posts={parsedPosts.slice(1)} />
+                    </> : null}
+                <footer>
+                    <Pagination pages={Array.from({ length: totalPage }, (_x, i) => i + 1)} maxNumberPages={6} />
+                </footer>
+            </>
+        );
+    } catch (e) {
+        return (
+            <h1>ERREI, FUI MLK</h1>
+        );
+    }
 }
 

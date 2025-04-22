@@ -2,15 +2,21 @@ import { StaticImageData } from "next/image";
 import Actions from "../common/Actions";
 import Action from "../common/Action";
 import ResponsiveImage from "../common/ResponsiveImage";
+import LinkAction from "../common/LinkAction";
+import Link from "next/link";
+
+import defaultImage from "@/public/images/default-image.jpg";
 
 type PostProps = {
+    id: string;
     title: string;
     date: string;
     children: string;
-    imageSrc: StaticImageData;
+    imageSrc?: StaticImageData;
 };
 
-export default function Post({ title, date, imageSrc, children }: PostProps) {
+export default function Post({ id, title, date, imageSrc, children }: PostProps) {
+    const route = `/post?id=${id}`;
     return (
         <article>
             <header>
@@ -20,18 +26,18 @@ export default function Post({ title, date, imageSrc, children }: PostProps) {
                     paddingLeft: "5%",
                     paddingRight: "5%"
                 }}>
-                    <a href="#">{title}</a>
+                    <Link href={route}>{title}</Link>
                 </h2>
             </header>
             <ResponsiveImage wrapper={{
-                component: "a",
+                component: Link,
                 props: {
-                    href: "#"
+                    href: route
                 }
-            }} alignment="fit" src={imageSrc} alt="" />
+            }} alignment="fit" src={imageSrc || defaultImage} alt="" />
             <p>{children}</p>
             <Actions special={true}>
-                <Action>Full Story</Action>
+                <LinkAction href={route}>Full Story</LinkAction>
             </Actions>
         </article>
     );

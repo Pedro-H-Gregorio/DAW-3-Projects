@@ -1,13 +1,13 @@
 import { StaticImageData } from "next/image";
 
 import Post from "./Post";
-import pic02 from "/public/images/pic02.jpg";
+import pic02 from "@/public/images/pic02.jpg";
 import pic03 from "/public/images/pic03.jpg";
 import pic04 from "/public/images/pic04.jpg";
 import pic05 from "/public/images/pic05.jpg";
 import pic06 from "/public/images/pic06.jpg";
 import pic07 from "/public/images/pic07.jpg";
-import { Post as PostType } from "../../types/Post";
+import { Post as PostType } from "@/types/Post";
 import { fetchPosts } from "../../utils/api";
 import { GetStaticProps } from "next";
 
@@ -49,7 +49,7 @@ export default function Posts({ posts }: PostsProps) {
     return (
         <section className="posts">
             {posts.map((post) => (
-                <Post key={post.id} title={post.title} date={post.date} imageSrc={pic02}>{post.summary}</Post>
+                <Post key={post.id} id={post.id} title={post.title} date={post.date}>{post.summary}</Post>
             ))}
         </section>
     );

@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Intro from "../../components/misc/Intro";
+import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
+import Copyright from "../../components/misc/Copyright";
+import Navigation from "../../components/layout/Navigation";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -11,11 +16,26 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const pages = [
+        { route: "/", title: "This is Massively" },
+        { route: "/post", title: "Generic Page", hidden: true },
+        { route: "/elements", title: "Elements Reference", hidden: true }
+    ];
+
     return (
         <html lang="en">
             <body className="preload">
-                {children}
+                <div className="wrapper">
+                    <Intro />
+                    <Header />
+                    <Navigation
+                        items={pages}
+                    />
+                    <div id="main">{children}</div>
+                    <Footer />
+                    <Copyright />
+                </div >
             </body>
         </html>
     );
-}
+} 

@@ -1,10 +1,12 @@
+import defaultImage from "/public/images/default-image.jpg";
 
-import pic01 from "/public/images/pic01.jpg";
 import ResponsiveImage from "../common/ResponsiveImage";
 import Actions from "../common/Actions";
 import Action from "../common/Action";
 import MajorHeader from "../common/MajorHeader";
 import { Post } from "../../types/Post";
+import LinkAction from "../common/LinkAction";
+import Link from "next/link";
 
 // const post = {
 //     title: "And this is a massive headline",
@@ -18,16 +20,17 @@ type FeaturedPostProps = {
 };
 
 export default function FeaturedPost({ post }: FeaturedPostProps) {
+    const route = `/post?id=${post.id}`;
     return (
         <article className="post featured">
             <MajorHeader title={post.title} date={post.date}>{post.summary}</MajorHeader>
             <ResponsiveImage wrapper={{
-                component: "a", props: {
-                    href: "#"
+                component: Link, props: {
+                    href: route
                 }
-            }} src={pic01} alignment="main" alt="" />
+            }} src={defaultImage} alignment="main" alt="" />
             <Actions special={true}>
-                <Action size="large">Full Story</Action>
+                <LinkAction href={route}>Full Story</LinkAction>
             </Actions>
         </article>
     );
