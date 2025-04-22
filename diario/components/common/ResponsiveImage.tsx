@@ -1,5 +1,7 @@
+"use client";
+
 import NextImage, { ImageProps as NextImageProps } from "next/image";
-import { ElementType } from "react";
+import { ElementType, useState } from "react";
 
 type WrapperProps = {
     component: ElementType;
@@ -18,16 +20,24 @@ export default function ResponsiveImage({
     style,
     ...rest
 }: ResponsiveImageProps) {
+    const [aspectRatio, setAspectRatio] = useState<string>();
     const alignmentClass = `image ${alignment} ${wrapper?.props?.className}`;
 
     return (
-        <wrapper.component className={alignmentClass} {...wrapper?.props}>
+        <wrapper.component style={{
+            aspectRatio,
+            ...wrapper?.props?.style
+        }} className={alignmentClass} {...wrapper?.props}>
             <NextImage
                 {...rest}
                 style={{
-                    height: "auto",
+                    objectFit: style?.objectFit || "cover",
                     ...style,
                 }}
+                onLoadingComplete={({ naturalWidth, naturalHeight }) => {
+                    setAspectRatio(`${naturalWidth}/${naturalHeight}`);
+                }}
+                fill
             />
         </wrapper.component >
     );

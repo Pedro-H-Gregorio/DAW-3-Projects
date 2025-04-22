@@ -1,7 +1,8 @@
 import Pagination from "@/components/common/Pagination";
-import FeaturedPost from "@/components/misc/FeaturedPost";
+import Post from "@/components/misc/Post";
 import Posts from "@/components/misc/Posts";
 import { fetchPosts, parsePosts } from "@/utils/api";
+
 
 type HomeProps = {
     searchParams?: Promise<{
@@ -17,14 +18,21 @@ export default async function Home({ searchParams }: HomeProps) {
         const response = await fetchPosts(currentPage);
         const totalPage = Math.ceil(response.total / response.limit) || 1;
         const parsedPosts = parsePosts(response.data);
+        const featuredPost = parsedPosts.length ? parsedPosts[0] : null;
 
         return (
             <>
-                {parsedPosts.length ?
+                {featuredPost ?
                     <>
-                        <FeaturedPost post={parsedPosts[0]} />
+                        <Post
+                            id={featuredPost.id}
+                            title={featuredPost.title}
+                            date={featuredPost.date}
+                            featured={true}
+                            imageSrc={featuredPost.imageSrc}>{featuredPost.summary}</Post>
                         <Posts posts={parsedPosts.slice(1)} />
-                    </> : null}
+                    </> : null
+                }
                 <footer>
                     <Pagination pages={Array.from({ length: totalPage }, (_x, i) => i + 1)} maxNumberPages={6} />
                 </footer>
@@ -33,6 +41,7 @@ export default async function Home({ searchParams }: HomeProps) {
     } catch (e) {
         console.log(e);
         return (
+
             <h1>ERREI, FUI MLK</h1>
         );
     }

@@ -4,7 +4,7 @@ type ApiPost = {
     email: string;
     categoria: string;
     descricao: string;
-    imagePath: string;
+    imagemPath?: string;
     titulo: string;
     dhPostagem: string;
 }
@@ -16,6 +16,7 @@ type ApiResponse = {
     total: number;
 };
 
+
 export function parsePost(post: ApiPost) {
     const date = new Date(post.dhPostagem);
     const formated = date.toLocaleDateString("en-US", {
@@ -24,14 +25,18 @@ export function parsePost(post: ApiPost) {
         year: "numeric"
     });
     const content = post.descricao.trim().concat("\n");
+    const imageSrc = post.imagemPath ? `http://localhost:5000/${post.imagemPath}` : "";
+
     return {
         id: post.id.toString(),
         title: post.titulo,
         summary: content.substring(0, content.indexOf("\n")),
         date: formated,
+        imageSrc,
         content
     };
 }
+
 
 export function parsePosts(posts: ApiPost[]) {
     return posts.map(parsePost);
@@ -57,6 +62,19 @@ export async function fetchPost(id: string): Promise<ApiPost> {
         throw new Error("Failed to fetch post.");
 
     return result.json();
+}
+
+export async function fetchFile(path: string): Promise<File> {
+    const url = new URL(`http://localhost:5000/${path}`);
+    const result = await fetch(url);
+
+    if (!result.ok)
+        throw new Error("Failed to fetch post.");
+
+    const blob = await result.blob();
+    const file = new File([blob], path, { type: blob.type })
+
+    return file;
 }
 
 export async function deletePost(id: string): Promise<boolean> {

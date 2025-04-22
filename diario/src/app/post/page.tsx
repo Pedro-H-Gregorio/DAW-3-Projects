@@ -1,8 +1,10 @@
+
 import { fetchPost, parsePost } from "@/utils/api";
 import ResponsiveImage from "@/components/common/ResponsiveImage";
 
 import defaultImage from "@/public/images/default-image.jpg";
 import DeletePost from "@/components/misc/DeletePost";
+import { notFound } from "next/navigation";
 
 type PostProps = {
     searchParams?: Promise<{
@@ -28,13 +30,13 @@ export default async function Post({ searchParams }: PostProps) {
                     <h1>{post.title}</h1>
                     <p>{post.summary}</p>
                 </header>
-                <ResponsiveImage alignment="main" src={defaultImage} alt="" />
+                <ResponsiveImage alignment="main" src={post.imageSrc || defaultImage} alt="" />
                 {paragraphs}
                 <DeletePost id={id} />
             </section>
         );
     } catch (e) {
         console.log(e);
-        return <h1>ERROR 404</h1>;
+        return notFound();
     }
 }

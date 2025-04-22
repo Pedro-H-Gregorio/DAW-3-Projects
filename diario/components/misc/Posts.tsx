@@ -49,7 +49,7 @@ export default function Posts({ posts }: PostsProps) {
     return (
         <section className="posts">
             {posts.map((post) => (
-                <Post key={post.id} id={post.id} title={post.title} date={post.date}>{post.summary}</Post>
+                <Post key={post.id} id={post.id} title={post.title} date={post.date} imageSrc={post.imageSrc}>{post.summary}</Post>
             ))}
         </section>
     );
