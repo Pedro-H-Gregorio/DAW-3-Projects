@@ -57,12 +57,6 @@ export default function FormStuff() {
                         value={category} 
                         onChange={(e) => setCategory(e.target.value)} 
                     />
-                    <datalist id="category-options">
-                        <option value="Manufacturing" />
-                        <option value="Shipping" />
-                        <option value="Administration" />
-                        <option value="Human Resources" />
-                    </datalist>
                 </div>
                     <div className="col-12">
                         <textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows={6}></textarea>
