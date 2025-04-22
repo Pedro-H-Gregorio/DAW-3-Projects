@@ -15,6 +15,7 @@ type PostProps = {
 };
 
 export default function Post({ id, title, date, imageSrc, featured, children }: PostProps) {
+    const MAX_SUMMARY_CHARACTERS = 160;
     const route = `/post?id=${id}`;
 
     return (
@@ -42,7 +43,9 @@ export default function Post({ id, title, date, imageSrc, featured, children }: 
                 quality={featured ? 100 : 75}
             />
             {featured ? null :
-                <p>{children}</p>}
+                <p>{children.length > MAX_SUMMARY_CHARACTERS ?
+                    children.substring(0, children.indexOf(" ", MAX_SUMMARY_CHARACTERS)) + "..."
+                    : children}</p>}
             <Actions special={true}>
                 <LinkAction href={route}>Full Story</LinkAction>
             </Actions>
