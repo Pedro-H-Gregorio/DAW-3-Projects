@@ -27,7 +27,8 @@ export function parsePost(post: PostResponse) {
 }
 
 export function parsePosts(posts: PostResponse[]) {
-    return posts.map(parsePost);
+    return posts.map(parsePost).sort((a, b) =>
+        new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export async function fetchPosts(page: number | string, limit: number = 7): Promise<PostListResponse> {
