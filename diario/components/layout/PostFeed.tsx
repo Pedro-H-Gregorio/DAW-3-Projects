@@ -1,18 +1,17 @@
 'use client';
 
-import useSWR from 'swr';
 import Post from '@/components/misc/Post';
 import Posts from '@/components/misc/Posts';
 import Pagination from '@/components/common/Pagination';
 import { fetchPosts, parsePosts } from '@/utils/api';
 import { useEffect } from 'react';
 
-import { mutate } from 'swr';
+import useSWR, { mutate } from 'swr';
 
 export default function PostFeed({ page }: { page: number }) {
     const fetcher = (_key: string) => fetchPosts(page);
     const { data, error, isLoading } = useSWR("/api/posts", fetcher, {
-        refreshInterval: 5000, // Atualiza a cada 5s (ajuste conforme necessário)
+        refreshInterval: 5000,
     });
 
     useEffect(() => {

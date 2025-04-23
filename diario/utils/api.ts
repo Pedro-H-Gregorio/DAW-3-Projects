@@ -1,7 +1,7 @@
 import { PostListResponse } from "@/types/PostListResponse";
 import { PostResponse } from "@/types/PostResponse";
 
-import axios from "axios";
+import axios, { AxiosInstance } from 'axios';
 import FormData from "form-data";
 
 export function parsePost(post: PostResponse) {
@@ -10,6 +10,9 @@ export function parsePost(post: PostResponse) {
         day: "2-digit",
         month: "long",
         year: "numeric",
+    }) + " " + date.toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit",
     });
     const content = post.descricao.trim().concat("\n");
     const imageSrc = post.imagemPath
@@ -31,45 +34,44 @@ export function parsePosts(posts: PostResponse[]) {
         new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
+const api: AxiosInstance = axios.create({
+    baseURL: 'http://localhost:5000/',
+    timeout: 10000,
+    headers: {
+        'Accept': 'application/json',
+    }
+});
+
 export async function fetchPosts(page: number | string, limit: number = 7): Promise<PostListResponse> {
-    const url = new URL("http://localhost:5000/diarios");
-    url.searchParams.set("page", page.toString());
-    url.searchParams.set("limit", limit.toString());
+    const params = {
+        page: page.toString(),
+        limit: limit.toString()
+    };
 
-    const result = await fetch(url);
-
-    if (!result.ok) throw new Error("Failed to fetch posts.");
-
-    return result.json();
+    const response = await api.get<PostListResponse>('diarios', { params });
+    return response.data;
 }
 
 export async function fetchPost(id: string): Promise<PostResponse> {
-    const url = new URL(`http://localhost:5000/diarios/${id}`);
-    const result = await fetch(url);
-
-    if (!result.ok) throw new Error("Failed to fetch post.");
-
-    return result.json();
+    const response = await api.get<PostResponse>(`diarios/${id}`);
+    return response.data;
 }
 
 export async function fetchFile(path: string): Promise<File> {
-    const url = new URL(`http://localhost:5000/${path}`);
-    const result = await fetch(url);
-
-    if (!result.ok) throw new Error("Failed to fetch post.");
-
-    const blob = await result.blob();
-    const file = new File([blob], path, { type: blob.type });
-
-    return file;
+    const response = await api.get(path, {
+        responseType: 'blob'
+    });
+    const blob = response.data;
+    return new File([blob], path, { type: blob.type });
 }
 
 export async function deletePost(id: string): Promise<boolean> {
-    const url = new URL(`http://localhost:5000/diarios/${id}`);
-    const result = await fetch(url, {
-        method: "DELETE",
-    });
-    return result.ok;
+    try {
+        const response = await api.delete(`diarios/${id}`);
+        return response.status >= 200 && response.status < 300;
+    } catch (error) {
+        return false;
+    }
 }
 
 export async function createPost({ author, email, title, category, content, image }: PostCreatePayload) {
@@ -82,7 +84,7 @@ export async function createPost({ author, email, title, category, content, imag
     form.append("descricao", content);
     form.append("file", image);
 
-    return await axios.post("http://localhost:5000/diarios", form, {
+    return await api.post("/diarios", form, {
         headers: {
             "Content-Type": "multipart/form-data",
         },
