@@ -29,26 +29,25 @@ import { Post as PostType } from "@/types/Post";
 //     }
 // ];
 
-// console.log("TESTE");
 
 type PostsProps = {
-  posts: PostType[];
+    posts: PostType[];
 };
 
 export default function Posts({ posts }: PostsProps) {
-  return (
-    <section className="posts">
-      {posts.map((post) => (
-        <Post
-          key={post.id}
-          id={post.id}
-          title={post.title}
-          date={post.date}
-          imageSrc={post.imageSrc}
-        >
-          {post.summary}
-        </Post>
-      ))}
-    </section>
-  );
+    return (
+        <section className="posts">
+            {posts.map((post) => (
+                <Post
+                    key={post.id}
+                    id={post.id}
+                    title={post.title}
+                    date={post.date}
+                    imageSrc={post.imageSrc}
+                >
+                    {post.summary}
+                </Post>
+            ))}
+        </section>
+    );
 }

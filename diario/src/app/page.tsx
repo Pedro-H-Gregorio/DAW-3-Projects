@@ -31,7 +31,10 @@ export default async function Home({ searchParams }: HomeProps) {
                             featured={true}
                             imageSrc={featuredPost.imageSrc}>{featuredPost.summary}</Post>
                         <Posts posts={parsedPosts.slice(1)} />
-                    </> : null
+                    </> :
+                    <header>
+                        <h2>Ops! Parece que ainda não há<br />nenhuma postagem aqui.</h2>
+                    </header>
                 }
                 <footer>
                     <Pagination pages={Array.from({ length: totalPage }, (_x, i) => i + 1)} maxNumberPages={6} />
@@ -39,10 +42,9 @@ export default async function Home({ searchParams }: HomeProps) {
             </>
         );
     } catch (e) {
-        console.log(e);
+        console.error(e);
         return (
-
-            <h1>ERREI, FUI MLK</h1>
+            <h2>Não foi possível resgatar as postagens.</h2>
         );
     }
 }

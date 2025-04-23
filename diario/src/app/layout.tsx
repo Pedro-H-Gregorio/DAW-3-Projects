@@ -7,33 +7,33 @@ import Copyright from "../../components/misc/Copyright";
 import Navigation from "../../components/layout/Navigation";
 
 export const metadata: Metadata = {
-  title: "Dialy",
-  description: "Diário para suas postagens",
+    title: "Dialy",
+    description: "Diário para suas postagens",
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  const pages = [
-    { route: "/", title: "Diário" },
-    { route: "/post", title: "Postagem", hidden: true },
-    { route: "/new", title: "Nova Postagem", hidden: true },
-  ];
+    const pages = [
+        { route: "/", title: "Diário" },
+        { route: "/post", title: "Postagem", hidden: true },
+        { route: "/new", title: "Nova Postagem", hidden: true },
+    ];
 
-  return (
-    <html lang="en">
-      <body className="preload">
-        <div className="wrapper">
-          <Intro />
-          <Header />
-          <Navigation items={pages} />
-          <div id="main">{children}</div>
-          <Footer />
-          <Copyright />
-        </div>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body className="preload">
+                <div className="wrapper">
+                    <Intro />
+                    <Header />
+                    <Navigation items={pages} />
+                    <div id="main">{children}</div>
+                    <Footer />
+                    <Copyright />
+                </div>
+            </body>
+        </html>
+    );
 }

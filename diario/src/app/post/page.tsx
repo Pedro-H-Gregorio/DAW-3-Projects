@@ -36,7 +36,7 @@ export default async function Post({ searchParams }: PostProps) {
             </section>
         );
     } catch (e) {
-        console.log(e);
+        console.error(e);
         return notFound();
     }
 }
