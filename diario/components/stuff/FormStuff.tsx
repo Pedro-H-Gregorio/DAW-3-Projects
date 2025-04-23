@@ -61,32 +61,6 @@ export default function FormStuff() {
             
         enviarDiario();
     };
-        /*
-        try {
-            // Primeiro passo: envia os dados do diário (sem imagem) é importante ser antes porque a imagem preciso ter um ID de diario associado
-            const diarioResponse = await axios.post("http://localhost:5000/diarios", {
-                nomeAutor: name,
-                email: email,
-                descricao: title,
-                categoria: category,
-                message: message,
-                imagemPath: "",
-            });
-
-            const diarioId = diarioResponse.data?.id; // Pega o ID retornado do diário
-
-            // Segundo passo: se houver uma imagem, faz o upload dela
-            if (selectedImage && diarioId) {
-                const formData = new FormData();
-
-            }
-
-            setMessage("Diário enviado com sucesso!");
-        } catch (error: any) {
-            console.error(error);
-            setMessage("Erro ao enviar o diário.");
-        }
-    };*/
 
     return (
         <>
@@ -149,7 +123,7 @@ export default function FormStuff() {
                             onChange={(e) => setCategory(e.target.value)} 
                         />
                     </div>
-                    
+
                     <div className="col-12 col-12-xsmall">
                         <textarea
                             placeholder="Content"
