@@ -2,8 +2,11 @@
 
 import { useRef, useState } from "react";
 import { FaDownload } from "react-icons/fa";
-import axios from "axios";
 import Action from "../common/Action";
+
+import FormData from "form-data";
+
+import axios from "axios";
 
 export default function FormStuff() {
   // Declaração dos estados para armazenar os valores do formulário
@@ -11,6 +14,7 @@ export default function FormStuff() {
   const [email, setEmail] = useState("");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
+  const [content, setContent] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [message, setMessage] = useState("");
 
@@ -28,64 +32,62 @@ export default function FormStuff() {
     }
   };
 
+  const reset = () => {
+    // Reseta todos os campos do formulário
+    setName("");
+    setEmail("");
+    setTitle("");
+    setSelectedImage(null);
+    setCategory("");
+    setContent("");
+    setMessage("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   // Função chamada ao enviar o formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Evita o recarregamento da página esse aqui fui sugestão do gpt não entendi mt bem ainda
 
-    try {
-      // Primeiro passo: envia os dados do diário (sem imagem) é importante ser antes porque a imagem preciso ter um ID de diario associado
-      const diarioResponse = await axios.post("http://localhost:3000/diarios", {
-        nomeAutor: name,
-        email: email,
-        descricao: title,
-        categoria: category,
-        message: message,
-        imagemPath: "",
-      });
+    async function enviarDiario() {
+      const form = new FormData();
 
-      const diarioId = diarioResponse.data?.id; // Pega o ID retornado do diário
+      form.append("nomeAutor", name);
+      form.append("email", email);
+      form.append("categoria", category);
+      form.append("descricao", content);
+      form.append("titulo", title);
+      form.append("file", selectedImage); // Adiciona o arquivo ao formData
 
-      // Segundo passo: se houver uma imagem, faz o upload dela
-      if (selectedImage && diarioId) {
-        const formData = new FormData();
-        formData.append("file", selectedImage); // Adiciona o arquivo ao formData
-
-        await axios.post(
-          `http://localhost:3000/diarios/${diarioId}/upload`,
-          formData,
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/diarios",
+          form,
           {
             headers: {
-              "Content-Type": "multipart/form-data", // Define o tipo do conteúdo
+              "Content-Type": "multipart/form-data",
             },
           }
         );
-      }
 
-      setMessage("Diário enviado com sucesso!");
-    } catch (error) {
-      console.error(error);
-      setMessage("Erro ao enviar o diário.");
+        console.log("Resposta:", response.data);
+      } catch (error) {
+        console.error("Erro ao enviar:", error);
+      }
     }
+
+    enviarDiario();
+    reset();
   };
 
   return (
     <>
-      <h2>Form</h2>
+      <h2>Nova Postagem</h2>
       <form
         encType="multipart/form-data"
         onSubmit={handleSubmit}
-        onReset={() => {
-          // Reseta todos os campos do formulário
-          setName("");
-          setEmail("");
-          setTitle("");
-          setSelectedImage(null);
-          setCategory("");
-          setMessage("");
-          if (fileInputRef.current) {
-            fileInputRef.current.value = "";
-          }
-        }}
+        onReset={reset}
       >
         <div className="row gtr-uniform">
           {/* Campo de nome */}
@@ -122,14 +124,19 @@ export default function FormStuff() {
             <input
               type="text"
               list="category-options"
-              placeholder="- Category -"
+              placeholder="Category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             />
           </div>
 
-          <div className="col-12">
-            <textarea placeholder="Enter your message" rows={6}></textarea>
+          <div className="col-12 col-12-xsmall">
+            <textarea
+              placeholder="Content"
+              onChange={(e) => setContent(e.target.value)}
+              rows={6}
+              value={content}
+            ></textarea>
           </div>
 
           {/* Upload da imagem */}
@@ -162,7 +169,7 @@ export default function FormStuff() {
           <div className="col-12">
             <ul className="actions">
               <li>
-                <input type="submit" value="Send Message" className="primary" />
+                <input type="submit" value="Salvar" className="primary" />
               </li>
               <li>
                 <input type="reset" value="Reset" />

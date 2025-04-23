@@ -19,7 +19,7 @@ export default function RootLayout({
   const pages = [
     { route: "/", title: "Diário" },
     { route: "/post", title: "Postagem", hidden: true },
-    { route: "/new", title: "Nova Postagem", hidden: false },
+    { route: "/new", title: "Nova Postagem", hidden: true },
   ];
 
   return (
