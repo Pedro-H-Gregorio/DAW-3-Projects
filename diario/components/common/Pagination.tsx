@@ -50,7 +50,7 @@ export default function Pagination(props: PaginationProps) {
     const searchParams = useSearchParams();
     const currentPage = Number(searchParams.get("page") || 1);
 
-    const pages = [...new Set([...props.pages, currentPage])].toSorted((a, b) => a < b ? a : b);
+    const pages = [...new Set([...props.pages, currentPage])].toSorted((a, b) => a - b);
     const firstPage = props.firstPage || Math.min(...pages);
     const lastPage = props.lastPage || Math.max(...pages);
 
