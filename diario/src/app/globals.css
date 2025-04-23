@@ -2453,6 +2453,19 @@ textarea:invalid {
     box-shadow: none;
 }
 
+#footer input[type="text"]:invalid:focus,
+#footer input[type="password"]:invalid:focus,
+#footer input[type="email"]:invalid:focus,
+#footer select:invalid:focus,
+#footer textarea:invalid:focus,
+input[type="text"]:invalid:focus,
+input[type="password"]:invalid:focus,
+input[type="email"]:invalid:focus,
+select:invalid:focus,
+textarea:invalid:focus {
+    border-color: rgba(231, 76, 60, 0.3);
+}
+
 select {
     background-size: 1.25rem;
     background-repeat: no-repeat;

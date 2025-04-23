@@ -8,9 +8,14 @@ import Action from "../common/Action";
 import { createPost } from "@/utils/api";
 import Box from "../common/Box";
 
+type FeedbackMessage = {
+    positive?: boolean;
+    content: string;
+};
+
 export default function Form() {
     // Declaração dos estados para armazenar os valores do formulário
-
+    const MESSAGE_PERSISTENCE_TIME = 3000;
     const [data, setData] = useState<PostCreatePayload>({
         id: "",
         author: "",
@@ -19,9 +24,12 @@ export default function Form() {
         category: "",
         content: ""
     });
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState<FeedbackMessage>({
+        content: ""
+    });
     const fileInputRef = useRef<HTMLInputElement>(null); // Referência ao input do tipo file (imagem)
     const messageDivRef = useRef<HTMLDivElement>(null);
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
         if (message && messageDivRef.current) {
@@ -46,6 +54,11 @@ export default function Form() {
         }
     };
 
+    const onInvalid = (_event: React.FormEvent, message: string = "Preencha corretamente todos os campos.") => {
+        setMessage({ content: message, positive: false });
+        setTimeout(() => setMessage({ content: "" }), MESSAGE_PERSISTENCE_TIME);
+    };
+
     const reset = () => {
         // Reseta todos os campos do formulário
 
@@ -60,24 +73,29 @@ export default function Form() {
         if (fileInputRef.current)
             fileInputRef.current.value = "";
 
-        setTimeout(() => setMessage(""), 5000);
-
+        setMessage({ content: "" });
     };
 
     // Função chamada ao enviar o formulário
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        if (data.content.trim().length <= (textAreaRef.current?.minLength || 0)) {
+            onInvalid(e);
+            return textAreaRef.current?.focus();
+        }
+
         try {
             await createPost(data);
-            console.log("TESTE");
 
             reset();
-            setMessage("Formuário Enviado com Sucesso.");
+            setMessage({ content: "Formuário Enviado com Sucesso.", positive: true });
+            setTimeout(() => setMessage({ content: "" }), MESSAGE_PERSISTENCE_TIME);
             mutate("/api/posts");
         } catch (error) {
             console.error("Erro ao enviar:", error);
-            setMessage("Ocorreu um erro ao enviar formulário. Tente Novamente.");
+            setMessage({ content: "Ocorreu um erro ao enviar formulário. Tente Novamente.", positive: false });
+            setTimeout(() => setMessage({ content: "" }), MESSAGE_PERSISTENCE_TIME);
         }
     };
 
@@ -96,8 +114,11 @@ export default function Form() {
                             type="text"
                             value={data.author}
                             onChange={(e) => setData((prev) => ({ ...prev, author: e.target.value }))}
+                            onInvalid={onInvalid}
+                            name="nome"
                             placeholder="Nome"
                             required
+                            pattern=".*\S.*"
                         />
                     </div>
 
@@ -107,7 +128,9 @@ export default function Form() {
                             type="email"
                             value={data.email}
                             onChange={(e) => setData((prev) => ({ ...prev, email: e.target.value }))}
+                            onInvalid={onInvalid}
                             placeholder="Email"
+                            required
                         />
                     </div>
 
@@ -117,7 +140,10 @@ export default function Form() {
                             type="text"
                             value={data.title}
                             onChange={(e) => setData((prev) => ({ ...prev, title: e.target.value }))}
+                            onInvalid={onInvalid}
+                            maxLength={40}
                             placeholder="Título"
+                            pattern=".*\S.*"
                             required
                         />
                     </div>
@@ -129,16 +155,24 @@ export default function Form() {
                             placeholder="Categoria"
                             value={data.category}
                             onChange={(e) => setData((prev) => ({ ...prev, category: e.target.value }))}
+                            onInvalid={onInvalid}
+                            pattern=".*\S.*"
                             required
                         />
                     </div>
 
                     <div className="col-12 col-12-xsmall">
                         <textarea
+                            ref={textAreaRef}
                             placeholder="Descrição"
                             onChange={(e) => setData((prev) => ({ ...prev, content: e.target.value }))}
+                            onInvalid={onInvalid}
                             rows={6}
                             value={data.content}
+                            style={{
+                                resize: "vertical"
+                            }}
+                            minLength={40}
                             required
                         ></textarea>
                     </div>
@@ -151,6 +185,11 @@ export default function Form() {
                             style={{ display: "none" }}
                             accept="image/*"
                             onChange={handleFileChange}
+                            onInvalid={(e) => {
+                                e.preventDefault();
+                                onInvalid(e, "Anexe uma imagem.");
+                            }}
+                            required
                         />
                         <Action
                             size="small"
@@ -182,15 +221,25 @@ export default function Form() {
                     </div>
 
                     {/* Exibição da mensagem de feedback */}
-                    {message && (
+                    {message.content.length ? (
                         <div className="col-12" ref={messageDivRef} >
-                            <Box>
-                                <h3>{message}</h3>
+                            <Box style={
+                                message.positive ? {
+                                    backgroundColor: "#dff0d8",
+                                    borderColor: "#d6e9c6"
+                                } : {
+                                    backgroundColor: "#f2dede",
+                                    borderColor: "#ebccd1"
+                                }
+                            }>
+                                <h3 style={{
+                                    color: message.positive ? "#3c763d" : "#a94442"
+                                }}>{message.content}</h3>
                             </Box>
                         </div>
-                    )}
+                    ) : null}
                 </div>
-            </form>
+            </form >
         </>
     );
 }
