@@ -14,6 +14,8 @@ export class DiarioUpdateDTO {
   @IsEmail({}, { message: 'E-mail inválido.' })
   email: string;
 
+  @IsOptional()
+  @IsString()
   categoria?: string;
 
   @IsOptional()
