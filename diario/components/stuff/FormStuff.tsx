@@ -148,12 +148,12 @@ export default function FormStuff() {
 
           {/* Botões de enviar e resetar */}
           <div className="col-12">
-            <ul className="actions">
+            <ul className="actions fit">
               <li>
-                <input type="submit" value="Salvar" className="primary" />
+                <input type="submit" value="Salvar" className="primary large" />
               </li>
               <li>
-                <input type="reset" value="Reset" />
+                <input type="reset" value="Reset" className="large" />
               </li>
             </ul>
           </div>
