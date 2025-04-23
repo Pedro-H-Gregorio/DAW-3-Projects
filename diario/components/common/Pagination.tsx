@@ -44,16 +44,15 @@ function renderFragmentedPages(
 }
 
 
-export default function Pagination({
-    pages,
-    firstPage = Math.min(...pages),
-    lastPage = Math.max(...pages),
-    maxNumberPages,
-}: PaginationProps) {
+export default function Pagination(props: PaginationProps) {
     const { replace } = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const currentPage = Number(searchParams.get("page") || 1);
+
+    const pages = [...props.pages, currentPage].toSorted((a, b) => a < b ? a : b);
+    const firstPage = props.firstPage || Math.min(...pages);
+    const lastPage = props.lastPage || Math.min(...pages);
 
     const createPageURL = (page: number | string) => {
         const params = new URLSearchParams(searchParams);
@@ -68,16 +67,16 @@ export default function Pagination({
 
     return (
         <div className="pagination">
-            {currentPage !== firstPage ? <a href="#" className="previous" onClick={(e) => {
+            {currentPage > firstPage ? <a href="#" className="previous" onClick={(e) => {
                 e.preventDefault();
                 updatePageURL(currentPage - 1);
             }}>Prev</a> : null}
             {
-                pages.length <= maxNumberPages ?
+                pages.length <= props.maxNumberPages ?
                     renderPages(currentPage, pages, updatePageURL) :
-                    renderFragmentedPages(currentPage, pages, maxNumberPages, updatePageURL)
+                    renderFragmentedPages(currentPage, pages, props.maxNumberPages, updatePageURL)
             }
-            {currentPage !== lastPage ? <a href="#" className="next" onClick={(e) => {
+            {currentPage < lastPage ? <a href="#" className="next" onClick={(e) => {
                 e.preventDefault();
                 updatePageURL(currentPage + 1);
             }}>Next</a> : null}
