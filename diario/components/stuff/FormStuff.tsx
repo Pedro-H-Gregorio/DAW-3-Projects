@@ -6,7 +6,7 @@ import Action from "../common/Action";
 
 import FormData from "form-data";
 
-import axios from "axios";
+import { createPost } from "@/utils/api";
 
 export default function FormStuff() {
   // Declaração dos estados para armazenar os valores do formulário
@@ -49,35 +49,16 @@ export default function FormStuff() {
   // Função chamada ao enviar o formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Evita o recarregamento da página esse aqui fui sugestão do gpt não entendi mt bem ainda
+    const form = new FormData();
 
-    async function enviarDiario() {
-      const form = new FormData();
+    form.append("nomeAutor", name);
+    form.append("email", email);
+    form.append("categoria", category);
+    form.append("descricao", content);
+    form.append("titulo", title);
+    form.append("file", selectedImage);
 
-      form.append("nomeAutor", name);
-      form.append("email", email);
-      form.append("categoria", category);
-      form.append("descricao", content);
-      form.append("titulo", title);
-      form.append("file", selectedImage); // Adiciona o arquivo ao formData
-
-      try {
-        const response = await axios.post(
-          "http://localhost:5000/diarios",
-          form,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        console.log("Resposta:", response.data);
-      } catch (error) {
-        console.error("Erro ao enviar:", error);
-      }
-    }
-
-    enviarDiario();
+    await createPost(form);
     reset();
   };
 
