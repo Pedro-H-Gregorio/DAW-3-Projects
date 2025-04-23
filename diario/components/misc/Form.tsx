@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { mutate } from 'swr';
 import { FaDownload } from "react-icons/fa";
 import Action from "../common/Action";
 
@@ -20,6 +21,16 @@ export default function Form() {
     });
     const [message, setMessage] = useState("");
     const fileInputRef = useRef<HTMLInputElement>(null); // Referência ao input do tipo file (imagem)
+    const messageDivRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (message && messageDivRef.current) {
+            setTimeout(() => {
+                messageDivRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+                messageDivRef.current?.focus();
+            }, 0);
+        }
+    }, [message]);
 
     // Função que simula o clique no input de upload de imagem
     const handleUploadClick = () => {
@@ -46,9 +57,11 @@ export default function Form() {
             category: "",
             content: ""
         });
-
         if (fileInputRef.current)
             fileInputRef.current.value = "";
+
+        setTimeout(() => setMessage(""), 5000);
+
     };
 
     // Função chamada ao enviar o formulário
@@ -59,8 +72,9 @@ export default function Form() {
             await createPost(data);
             console.log("TESTE");
 
-            setMessage("Formuário Enviado com Sucesso.");
             reset();
+            setMessage("Formuário Enviado com Sucesso.");
+            mutate("/api/posts");
         } catch (error) {
             console.error("Erro ao enviar:", error);
             setMessage("Ocorreu um erro ao enviar formulário. Tente Novamente.");
@@ -169,7 +183,7 @@ export default function Form() {
 
                     {/* Exibição da mensagem de feedback */}
                     {message && (
-                        <div className="col-12">
+                        <div className="col-12" ref={messageDivRef} >
                             <Box>
                                 <h3>{message}</h3>
                             </Box>
