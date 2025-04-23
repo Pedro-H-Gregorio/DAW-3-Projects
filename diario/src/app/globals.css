@@ -89,6 +89,7 @@ video {
     vertical-align: baseline;
 }
 
+
 article,
 aside,
 details,
@@ -101,6 +102,11 @@ menu,
 nav,
 section {
     display: block;
+}
+
+p {
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 body {

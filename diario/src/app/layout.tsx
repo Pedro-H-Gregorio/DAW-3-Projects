@@ -23,7 +23,7 @@ export default function RootLayout({
     ];
 
     return (
-        <html lang="en">
+        <html lang="pt-br">
             <body className="preload">
                 <div className="wrapper">
                     <Intro />
