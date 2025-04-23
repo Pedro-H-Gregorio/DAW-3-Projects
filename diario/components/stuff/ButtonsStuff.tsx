@@ -1,3 +1,5 @@
+'use client';
+
 import { FaDownload, FaSearch } from "react-icons/fa";
 import Action from "../common/Action";
 import Actions from "../common/Actions";
