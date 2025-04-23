@@ -28,6 +28,9 @@ export class DiarioService {
     const [data, total] = await this.diarioRepository.findAndCount({
       skip,
       take: limit,
+      order: {
+        dhPostagem: 'DESC',
+      },
     });
 
     return {

@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -32,9 +33,10 @@ export class DiarioController {
     @Body() diarioDTO: DiarioDTO,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    if (file) {
-      diarioDTO.imagemPath = file.path.replace(process.cwd() + '/dist/', '');
+    if (!file) {
+      throw new BadRequestException('Arquivo não enviado.');
     }
+    diarioDTO.imagemPath = file.path.replace(process.cwd() + '/dist/', '');
     return this.diarioService.create(diarioDTO);
   }
 
