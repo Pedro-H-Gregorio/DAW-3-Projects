@@ -3,8 +3,8 @@ import { fetchPost, parsePost } from "@/utils/api";
 import ResponsiveImage from "@/components/common/ResponsiveImage";
 
 import defaultImage from "@/public/images/default-image.jpg";
-import DeletePost from "@/components/misc/DeletePost";
 import { notFound } from "next/navigation";
+import PostActions from "@/components/misc/PostActions";
 
 type PostProps = {
     searchParams?: Promise<{
@@ -32,7 +32,7 @@ export default async function Post({ searchParams }: PostProps) {
                 </header>
                 <ResponsiveImage alignment="main" src={post.imageSrc || defaultImage} alt="" />
                 {paragraphs}
-                <DeletePost id={id} />
+                <PostActions id={id} />
             </section>
         );
     } catch (e) {

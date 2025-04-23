@@ -7,15 +7,11 @@ import Action from "../common/Action";
 
 import { createPost } from "@/utils/api";
 import Box from "../common/Box";
+import MessageBox, { Message } from "../common/MessageBox";
 
-type FeedbackMessage = {
-    positive?: boolean;
-    content: string;
-};
 
 export default function Form() {
     // Declaração dos estados para armazenar os valores do formulário
-    const MESSAGE_PERSISTENCE_TIME = 3000;
     const [data, setData] = useState<PostCreatePayload>({
         id: "",
         author: "",
@@ -24,21 +20,12 @@ export default function Form() {
         category: "",
         content: ""
     });
-    const [message, setMessage] = useState<FeedbackMessage>({
+    const [message, setMessage] = useState<Message>({
         content: ""
     });
     const fileInputRef = useRef<HTMLInputElement>(null); // Referência ao input do tipo file (imagem)
-    const messageDivRef = useRef<HTMLDivElement>(null);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    useEffect(() => {
-        if (message && messageDivRef.current) {
-            setTimeout(() => {
-                messageDivRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-                messageDivRef.current?.focus();
-            }, 0);
-        }
-    }, [message]);
 
     // Função que simula o clique no input de upload de imagem
     const handleUploadClick = () => {
@@ -56,7 +43,6 @@ export default function Form() {
 
     const onInvalid = (_event: React.FormEvent, message: string = "Preencha corretamente todos os campos.") => {
         setMessage({ content: message, positive: false });
-        setTimeout(() => setMessage({ content: "" }), MESSAGE_PERSISTENCE_TIME);
     };
 
     const reset = () => {
@@ -90,12 +76,10 @@ export default function Form() {
 
             reset();
             setMessage({ content: "Formuário Enviado com Sucesso.", positive: true });
-            setTimeout(() => setMessage({ content: "" }), MESSAGE_PERSISTENCE_TIME);
             mutate("/api/posts");
         } catch (error) {
             console.error("Erro ao enviar:", error);
             setMessage({ content: "Ocorreu um erro ao enviar formulário. Tente Novamente.", positive: false });
-            setTimeout(() => setMessage({ content: "" }), MESSAGE_PERSISTENCE_TIME);
         }
     };
 
@@ -220,24 +204,7 @@ export default function Form() {
                         </ul>
                     </div>
 
-                    {/* Exibição da mensagem de feedback */}
-                    {message.content.length ? (
-                        <div className="col-12" ref={messageDivRef} >
-                            <Box style={
-                                message.positive ? {
-                                    backgroundColor: "#dff0d8",
-                                    borderColor: "#d6e9c6"
-                                } : {
-                                    backgroundColor: "#f2dede",
-                                    borderColor: "#ebccd1"
-                                }
-                            }>
-                                <h3 style={{
-                                    color: message.positive ? "#3c763d" : "#a94442"
-                                }}>{message.content}</h3>
-                            </Box>
-                        </div>
-                    ) : null}
+                    <MessageBox message={message} setMessage={setMessage} />
                 </div>
             </form >
         </>
