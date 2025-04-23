@@ -1,33 +1,54 @@
-import Image, { StaticImageData } from "next/image";
+import Actions from "../common/Actions";
+import ResponsiveImage from "../common/ResponsiveImage";
+import LinkAction from "../common/LinkAction";
+import Link from "next/link";
 
+import defaultImage from "@/public/images/default-image.jpg";
 
 type PostProps = {
+    id: string;
     title: string;
     date: string;
     children: string;
-    imageSrc: StaticImageData;
+    featured?: boolean;
+    imageSrc?: string;
 };
 
-export default function Post({ title, date, imageSrc, children }: PostProps) {
+export default function Post({ id, title, date, imageSrc, featured, children }: PostProps) {
+    const MAX_SUMMARY_CHARACTERS = 160;
+    const route = `/post?id=${id}`;
+
     return (
-        <article>
-            <header>
+        <article className={featured ? "post featured" : ""}>
+            <header className={featured ? "major" : ""}>
                 <span className="date">{date}</span>
                 <h2 style={{
                     textWrap: "balance",
+                    paddingLeft: featured ? "10%" : "5%",
+                    paddingRight: featured ? "10%" : "5%"
                 }}>
-                    <a href="#">{title}</a>
+                    <Link href={route}>{title}</Link>
                 </h2>
             </header>
-            <a href="#" className="image fit">
-                <Image src={imageSrc} alt="" style={{ height: "auto" }} />
-            </a>
-            <p>{children}</p>
-            <ul className="actions special">
-                <li>
-                    <a href="#" className="button">Full Story</a>
-                </li>
-            </ul>
+            <ResponsiveImage
+                wrapper={{
+                    component: Link,
+                    props: {
+                        href: route
+                    }
+                }}
+                alignment={featured ? "main" : "fit"}
+                src={imageSrc || defaultImage}
+                alt=""
+                quality={featured ? 100 : 75}
+            />
+            {featured ? null :
+                <p>{children.length > MAX_SUMMARY_CHARACTERS ?
+                    children.substring(0, children.indexOf(" ", MAX_SUMMARY_CHARACTERS)) + "..."
+                    : children}</p>}
+            <Actions special={true}>
+                <LinkAction href={route}>Full Story</LinkAction>
+            </Actions>
         </article>
     );
 }

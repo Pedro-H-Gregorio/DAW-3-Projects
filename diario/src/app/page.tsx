@@ -1,35 +1,49 @@
-import Footer from "../../components/layout/Footer";
-import Header from "../../components/layout/Header";
-import Tab from "../../components/layout/Tab";
-import Tabs from "../../components/layout/Tabs";
-import Copyright from "../../components/misc/Copyright";
-import Elements from "../../components/misc/Elements";
-import FeaturedPost from "../../components/misc/FeaturedPost";
-import Generic from "../../components/misc/Generic";
-import Intro from "../../components/misc/Intro";
-import PaginationFooter from "../../components/misc/PaginationFooter";
-import Posts from "../../components/misc/Posts";
+import Pagination from "@/components/common/Pagination";
+import Post from "@/components/misc/Post";
+import Posts from "@/components/misc/Posts";
+import { fetchPosts, parsePosts } from "@/utils/api";
 
-export default function Home() {
-    return (
-        <div className="wrapper">
-            <Intro />
-            <Header />
-            <Tabs>
-                <Tab title="This is Massively">
-                    <FeaturedPost />
-                    <Posts />
-                    <PaginationFooter />
-                </Tab>
-                <Tab title="Generic Page">
-                    <Generic />
-                </Tab>
-                <Tab title="Elements Reference">
-                    <Elements />
-                </Tab>
-            </Tabs>
-            <Footer />
-            <Copyright />
-        </div >
-    );
+
+type HomeProps = {
+    searchParams?: Promise<{
+        page?: string;
+    }>;
+};
+
+export default async function Home({ searchParams }: HomeProps) {
+    try {
+        const params = await searchParams;
+        const currentPage = Number(params?.page) || 1;
+
+        const response = await fetchPosts(currentPage);
+        const totalPage = Math.ceil(response.total / response.limit) || 1;
+        const parsedPosts = parsePosts(response.data);
+        const featuredPost = parsedPosts.length ? parsedPosts[0] : null;
+
+        return (
+            <>
+                {featuredPost ?
+                    <>
+                        <Post
+                            id={featuredPost.id}
+                            title={featuredPost.title}
+                            date={featuredPost.date}
+                            featured={true}
+                            imageSrc={featuredPost.imageSrc}>{featuredPost.summary}</Post>
+                        <Posts posts={parsedPosts.slice(1)} />
+                    </> : null
+                }
+                <footer>
+                    <Pagination pages={Array.from({ length: totalPage }, (_x, i) => i + 1)} maxNumberPages={6} />
+                </footer>
+            </>
+        );
+    } catch (e) {
+        console.log(e);
+        return (
+
+            <h1>ERREI, FUI MLK</h1>
+        );
+    }
 }
+

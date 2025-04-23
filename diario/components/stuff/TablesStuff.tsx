@@ -46,7 +46,6 @@ export default function TablesStuff() {
                         <td>100.00</td>
                     </tr>
                 </tfoot>
-
             </Table>
             <h3>Alternate</h3>
             <Table alt={true}>
