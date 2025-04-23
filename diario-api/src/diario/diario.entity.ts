@@ -19,4 +19,10 @@ export class Diario {
 
   @Column({ nullable: true })
   imagemPath?: string;
+
+  @Column({ nullable: false, length: 100 })
+  titulo: string;
+
+  @Column({ type: 'timestamptz', nullable: false })
+  dhPostagem: Date;
 }
