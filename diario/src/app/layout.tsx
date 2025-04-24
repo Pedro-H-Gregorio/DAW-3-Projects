@@ -5,6 +5,7 @@ import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import Copyright from "../../components/misc/Copyright";
 import Navigation from "../../components/layout/Navigation";
+import Wrapper from "@/components/layout/Wrapper";
 
 export const metadata: Metadata = {
     title: "Dialy",
@@ -24,15 +25,15 @@ export default function RootLayout({
 
     return (
         <html lang="pt-br">
-            <body className="preload">
-                <div className="wrapper">
+            <body className="is-preload">
+                <Wrapper>
                     <Intro />
                     <Header />
                     <Navigation items={pages} />
                     <div id="main">{children}</div>
                     <Footer />
                     <Copyright />
-                </div>
+                </Wrapper>
             </body>
         </html>
     );
