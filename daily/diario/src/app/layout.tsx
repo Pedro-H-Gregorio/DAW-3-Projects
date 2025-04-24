@@ -6,6 +6,7 @@ import Footer from "../../components/layout/Footer";
 import Copyright from "../../components/misc/Copyright";
 import Navigation from "../../components/layout/Navigation";
 import Wrapper from "@/components/layout/Wrapper";
+import NavPanel from "@/components/layout/NavPanel";
 
 export const metadata: Metadata = {
     title: "Dialy",
@@ -34,6 +35,7 @@ export default function RootLayout({
                     <Footer />
                     <Copyright />
                 </Wrapper>
+                <NavPanel items={pages} />
             </body>
         </html>
     );

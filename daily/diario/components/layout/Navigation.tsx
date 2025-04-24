@@ -5,7 +5,7 @@ import { ExternalLinkProps } from "../common/ExternalLink";
 import ExternalLinks from "../common/ExternalLinks";
 import { usePathname } from "next/navigation";
 
-type NavigationItem = {
+export type NavigationItem = {
     route: string;
     title: string;
     hidden?: boolean;

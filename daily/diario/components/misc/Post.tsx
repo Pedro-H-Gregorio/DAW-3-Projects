@@ -2,8 +2,8 @@ import Actions from "../common/Actions";
 import ResponsiveImage from "../common/ResponsiveImage";
 import LinkAction from "../common/LinkAction";
 import Link from "next/link";
+import { StaticImageData } from "next/image";
 
-import defaultImage from "@/public/images/default-image.jpg";
 
 type PostProps = {
     id: string;
@@ -11,7 +11,7 @@ type PostProps = {
     date: string;
     children: string;
     featured?: boolean;
-    imageSrc?: string;
+    imageSrc: string | StaticImageData;
 };
 
 export default function Post({ id, title, date, imageSrc, featured, children }: PostProps) {
@@ -38,7 +38,7 @@ export default function Post({ id, title, date, imageSrc, featured, children }: 
                     }
                 }}
                 alignment={featured ? "main" : "fit"}
-                src={imageSrc || defaultImage}
+                src={imageSrc}
                 alt=""
                 quality={featured ? 100 : 75}
             />

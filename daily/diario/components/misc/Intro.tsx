@@ -1,45 +1,21 @@
 "use client";
 
+import { useScrollEffect } from "@/hooks/useScrollEffect";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FaArrowDown } from "react-icons/fa";
 
 export default function Intro() {
     const pathname = usePathname();
     const [showIntro, setShowIntro] = useState(false);
     const introRef = useRef<HTMLDivElement>(null);
-    const rafId = useRef<number | null>(null);
 
-    const checkScroll = useCallback(() => {
-        if (!introRef.current) return;
-
-        const introHeight = introRef.current.offsetHeight;
-        const triggerPoint = introHeight * 0.5;
-        const shouldShow = window.scrollY < triggerPoint;
-
-        setShowIntro(shouldShow);
-    }, []);
-
-    const handleScroll = useCallback(() => {
-        if (rafId.current) return;
-
-        rafId.current = requestAnimationFrame(() => {
-            checkScroll();
-            rafId.current = null;
-        });
-    }, [checkScroll]);
+    useScrollEffect(introRef, ({ progress }) =>
+        setShowIntro(progress <= 0.75));
 
     useEffect(() => {
         setShowIntro(pathname === "/");
     }, [pathname]);
-
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-            if (rafId.current) cancelAnimationFrame(rafId.current);
-        };
-    }, [handleScroll]);
 
 
     return (
