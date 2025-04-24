@@ -11,7 +11,11 @@ export default function Intro() {
             <ul className="actions">
                 <li>
                     <a href="#header" className="button icon solid solo scrolly">
-                        <FaArrowDown className="icon solid solo scrolly before" size={26} />
+                        <FaArrowDown className="icon solid solo scrolly before" style={{
+                            width: "26px",
+                            left: "50%",
+                            transform: "translateX(-50%)"
+                        }} />
                         Continue
                     </a>
                 </li>
