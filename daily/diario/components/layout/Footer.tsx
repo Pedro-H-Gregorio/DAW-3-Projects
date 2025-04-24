@@ -6,7 +6,7 @@ export default function Footer() {
   const pathName = usePathname();
   return (
     <footer id="footer">
-      <section>{!(pathName == "post") || <Form />}</section>
+      <section>{!pathName.includes("post") && <Form />}</section>
     </footer>
   );
 }
