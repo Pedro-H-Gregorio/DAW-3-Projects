@@ -9,8 +9,8 @@ Sistema de registro de atividades do dia a dia, uma espécie de blog pessoal des
 O **Diário** permite que usuários registrem momentos do seu cotidiano por meio de postagens que incluem:
 
 - **🗓️: Data-Hora:** Registrada automaticamente pelo sistema no momento da postagem.
-- **🖊️: Título:** Curto e objetivo, com limitação de caracteres.
-- **📷: Foto:** Imagem representativa de cada registro.
+- **🖊️: Título:** Curto e objetivo.
+- **📷: Foto:** Imagem associada a cada registro.
 - **📃: Texto:** Descrição completa da atividade/postagem.
 
 ---
@@ -33,12 +33,12 @@ Na home do Diário, o usuário encontra:
 
 ## 🔍: Visualização Individual
 
-Ao clicar em uma postagem, o usuário é direcionado para uma página com **todos os detalhes** da entrada, incluindo o **texto completo**.
+Ao clicar em uma postagem, o usuário é direcionado para uma página com **todos os detalhes** da entrada, incluindo o **texto completo** e a opção de deletar a postagem.
 
 ---
 
 ## 👨‍💻: Tecnologias Utilizadas
 
-- **Front-end:** React 
-- **Design:** [HTML5 UP - Massively](https://html5up.net/massively) (ou design próprio)
-- **Back-end & Banco de Dados:** Livre escolha da equipe
+- **Front-end:** React e Next.JS
+- **Design:** [HTML5 UP - Massively](https://html5up.net/massively)
+- **Back-end & Banco de Dados:** Nest.js, Docker e PostgreSQL
